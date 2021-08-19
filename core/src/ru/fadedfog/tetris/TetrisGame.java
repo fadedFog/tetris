@@ -5,16 +5,19 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+import ru.fadedfog.tetris.models.GameField;
 import ru.fadedfog.tetris.screens.GameScreen;
 
 public class TetrisGame extends ApplicationAdapter {
 	private SpriteBatch batch;
 	private Screen screen;
+	private GameField gameField;
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		screen = new GameScreen();
+		screen = new GameScreen(this);
+		gameField = new GameField();
 	}
 
 	@Override
@@ -43,6 +46,14 @@ public class TetrisGame extends ApplicationAdapter {
 
 	public void setScreen(Screen screen) {
 		this.screen = screen;
+	}
+
+	public GameField getGameField() {
+		return gameField;
+	}
+
+	public void setGameField(GameField gameField) {
+		this.gameField = gameField;
 	}
 	
 }
