@@ -20,7 +20,7 @@ public class GameScreen implements Screen {
 	
 	public GameScreen(TetrisGame game) {
 		this.game = game;
-		config = GameConfig.getConfig();
+		config = GameConfig.getGameConfig();
 		batch = game.getBatch();
 		shapeRenderer = new ShapeRenderer();
 		createSprites();

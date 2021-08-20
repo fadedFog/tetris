@@ -9,6 +9,8 @@ public class DesktopLauncher {
 	
 	public static void main (String[] arg) {
 		GameConfig gameConfig = GameConfig.getInstance();
+		gameConfig.writeConfig();
+//		gameConfig.readConfig();
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.title = gameConfig.getTitleWindow();
 		config.width = gameConfig.getWidthWindow();

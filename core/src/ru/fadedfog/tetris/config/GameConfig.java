@@ -1,45 +1,32 @@
 package ru.fadedfog.tetris.config;
 
+
 public class GameConfig {
-	private static GameConfig config;
-	private final String PATH_CONFIG_FILE = "resources/game_config.json";
+	private static GameConfig gameConfig;
+	private final String PATH_CONFIG_FILE = "src/ru/fadedfog/tetris/resources/game_config.json";
 	private ReaderConfig readerConnfig;
 	private WriterConfig writerConfig;
-	private String titleWindow;
-	private int widthWindow;
-	private int heightWindow;
-	private int yWindow;
-	private boolean resizableWindow;
-	private int sizePartShap;
-	private int columnsNumber;
-	private int rowsNumber;
+	private Config config;
 
 	private GameConfig() {
 		readerConnfig = new ReaderConfig(PATH_CONFIG_FILE);
 		writerConfig = new WriterConfig(PATH_CONFIG_FILE);
-		titleWindow = "T e t r i s";
-		widthWindow = 336;
-		heightWindow = 696;
-		yWindow = 1;
-		resizableWindow = false;
-		sizePartShap = 24;
-		columnsNumber = 10;
-		rowsNumber = 22;
+		config = new Config();
 	}
 	
 	public static GameConfig getInstance() {
-		if (config == null) {
-			config = new GameConfig();
+		if (gameConfig == null) {
+			gameConfig = new GameConfig();
 		}
-		return config;
+		return gameConfig;
 	}
 	
 	public void readConfig() {
-		readerConnfig.read(this);
+		config = readerConnfig.read(this);
 	}
 	
 	public void writeConfig() {
-		writerConfig.write(this);
+		writerConfig.write(config);
 	}
 	
 	public String getPATH_CONFIG_FILE() {
@@ -62,76 +49,76 @@ public class GameConfig {
 		this.readerConnfig = readerConnfig;
 	}
 
-	public static GameConfig getConfig() {
-		return config;
+	public static GameConfig getGameConfig() {
+		return gameConfig;
 	}
 
-	public static void setConfig(GameConfig config) {
-		GameConfig.config = config;
+	public static void setConfig(GameConfig gameConfig) {
+		GameConfig.gameConfig = gameConfig;
 	}
 
 	public String getTitleWindow() {
-		return titleWindow;
+		return config.getTitleWindow();
 	}
 
 	public void setTitleWindow(String title) {
-		this.titleWindow = title;
+		config.setTitleWindow(title);
 	}
 
 	public int getWidthWindow() {
-		return widthWindow;
+		return config.getWidthWindow();
 	}
 
 	public void setWidthWindow(int widthWindow) {
-		this.widthWindow = widthWindow;
+		config.setWidthWindow(widthWindow);
 	}
 
 	public int getHeightWindow() {
-		return heightWindow;
+		return config.getHeightWindow();
 	}
 
 	public void setHeightWindow(int heightWindow) {
-		this.heightWindow = heightWindow;
+		config.setHeightWindow(heightWindow);
 	}
 
 	public int getyWindow() {
-		return yWindow;
+		return config.getyWindow();
 	}
 
 	public void setyWindow(int yWindow) {
-		this.yWindow = yWindow;
+		config.setyWindow(yWindow);
 	}
 
 	public boolean isResizableWindow() {
-		return resizableWindow;
+		return config.isResizableWindow();
 	}
 
 	public void setResizableWindow(boolean resizableWindow) {
-		this.resizableWindow = resizableWindow;
+		config.setResizableWindow(resizableWindow);
 	}
 
 	public int getSizePartShap() {
-		return sizePartShap;
+		return config.getSizePartShap();
 	}
 
 	public void setSizePartShap(int sizePartShap) {
-		this.sizePartShap = sizePartShap;
+		config.setSizePartShap(sizePartShap);
 	}
 
 	public int getColumnsNumber() {
-		return columnsNumber;
+		return config.getColumnsNumber();
 	}
 
 	public void setColumnsNumber(int columnsNumber) {
-		this.columnsNumber = columnsNumber;
+		config.setColumnsNumber(columnsNumber);
 	}
 
 	public int getRowsNumber() {
-		return rowsNumber;
+		return config.getRowsNumber();
 	}
 
 	public void setRowsNumber(int rowsNumber) {
-		this.rowsNumber = rowsNumber;
+		config.setRowsNumber(rowsNumber);
 	}
 	
 }

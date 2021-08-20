@@ -1,5 +1,6 @@
 package ru.fadedfog.tetris.config;
 
+
 public class ReaderConfig {
 	private String pathFile;
 
@@ -7,8 +8,8 @@ public class ReaderConfig {
 		this.pathFile = pathFile;
 	}
 	
-	public void read(GameConfig config) {
-		
+	public Config read(GameConfig gameConfig) {
+		return null;
 	}
 
 	public String getPathFile() {
