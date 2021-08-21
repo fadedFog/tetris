@@ -49,14 +49,6 @@ public class GameConfig {
 		this.readerConnfig = readerConnfig;
 	}
 
-	public static GameConfig getGameConfig() {
-		return gameConfig;
-	}
-
-	public static void setConfig(GameConfig gameConfig) {
-		GameConfig.gameConfig = gameConfig;
-	}
-
 	public String getTitleWindow() {
 		return config.getTitleWindow();
 	}

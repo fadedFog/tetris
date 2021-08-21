@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 import ru.fadedfog.tetris.config.GameConfig;
+import ru.fadedfog.tetris.models.Dot;
 import ru.fadedfog.tetris.models.GameField;
 import ru.fadedfog.tetris.screens.GameScreen;
 
@@ -14,19 +15,35 @@ public class TetrisGame extends ApplicationAdapter {
 	private Screen screen;
 	private GameField gameField;
 	private GameConfig config;
+	private Dot dot;
+	private long lastTime;
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		screen = new GameScreen(this);
-		gameField = new GameField();
 		config = GameConfig.getInstance();
+		createModels();
+		lastTime = System.currentTimeMillis();
+	}
+	
+	private void createModels() {
+		gameField = new GameField();
+		dot = new Dot();
 	}
 
 	@Override
 	public void render () {
+		update();
 		ScreenUtils.clear(0, 0, 0, 1);
 		screen.render(1);
+	}
+	
+	private void update() {
+		if ((System.currentTimeMillis() - lastTime) / 1000 >= 1) {
+			dot.reduceY();
+			lastTime = System.currentTimeMillis();
+		}
 	}
 	
 	@Override
@@ -57,6 +74,14 @@ public class TetrisGame extends ApplicationAdapter {
 
 	public void setGameField(GameField gameField) {
 		this.gameField = gameField;
+	}
+
+	public Dot getDot() {
+		return dot;
+	}
+
+	public void setDot(Dot dot) {
+		this.dot = dot;
 	}
 
 }
