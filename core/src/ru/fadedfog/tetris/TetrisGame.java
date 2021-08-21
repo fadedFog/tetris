@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+import ru.fadedfog.tetris.config.GameConfig;
 import ru.fadedfog.tetris.models.GameField;
 import ru.fadedfog.tetris.screens.GameScreen;
 
@@ -12,12 +13,14 @@ public class TetrisGame extends ApplicationAdapter {
 	private SpriteBatch batch;
 	private Screen screen;
 	private GameField gameField;
+	private GameConfig config;
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		screen = new GameScreen(this);
 		gameField = new GameField();
+		config = GameConfig.getInstance();
 	}
 
 	@Override
@@ -55,5 +58,5 @@ public class TetrisGame extends ApplicationAdapter {
 	public void setGameField(GameField gameField) {
 		this.gameField = gameField;
 	}
-	
+
 }

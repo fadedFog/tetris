@@ -3,16 +3,19 @@ package ru.fadedfog.tetris.desktop;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import ru.fadedfog.tetris.TetrisGame;
+import ru.fadedfog.tetris.config.GameConfig;
 
 public class DesktopLauncher {
 	
 	public static void main (String[] arg) {
+		GameConfig gameConfig = GameConfig.getInstance();
+		gameConfig.readConfig();
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.title = "T e t r i s";
-		config.width = 336;
-		config.height = 696;
-		config.y += 1;
-		config.resizable = false;
+		config.title = gameConfig.getTitleWindow();
+		config.width = gameConfig.getWidthWindow();
+		config.height = gameConfig.getHeightWindow();
+		config.y += gameConfig.getyWindow();
+		config.resizable = gameConfig.isResizableWindow();
 		new LwjglApplication(new TetrisGame(), config);
 	}
 }

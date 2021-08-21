@@ -9,8 +9,10 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 import ru.fadedfog.tetris.TetrisGame;
+import ru.fadedfog.tetris.config.GameConfig;
 
 public class GameScreen implements Screen {
+	private GameConfig config;
 	private TetrisGame game;
 	private SpriteBatch batch;
 	private Texture spriteBorderField;
@@ -18,6 +20,7 @@ public class GameScreen implements Screen {
 	
 	public GameScreen(TetrisGame game) {
 		this.game = game;
+		config = GameConfig.getGameConfig();
 		batch = game.getBatch();
 		shapeRenderer = new ShapeRenderer();
 		createSprites();
@@ -48,14 +51,15 @@ public class GameScreen implements Screen {
 	private void drawGridField() {
 		shapeRenderer.begin(ShapeType.Line);
 		Color colorGrid = new Color(0.3f, 0.28f, 0.1f, 0);
-		int size = 24; 
-		int jEnd = 10;
-		int iEnd = 22;
+		int sizePartSharp = config.getSizePartShap(); 
+		int columnsNumber = config.getColumnsNumber();
+		int rowsNumber = config.getRowsNumber();
 		
 		shapeRenderer.setColor(colorGrid);
-		for (int i = 0; i < iEnd; i++) {
-			for (int j = 0; j < jEnd; j++) {
-				shapeRenderer.rect(game.getGameField().getX() + (j * size), game.getGameField().getY() + (i * size), size, size);
+		for (int i = 0; i < rowsNumber; i++) {
+			for (int j = 0; j < columnsNumber; j++) {
+				shapeRenderer.rect(game.getGameField().getX() + (j * sizePartSharp),
+						game.getGameField().getY() + (i * sizePartSharp), sizePartSharp, sizePartSharp);
 			}
 		}
 		
