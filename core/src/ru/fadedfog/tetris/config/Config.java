@@ -10,17 +10,6 @@ public class Config {
 	private int columnsNumber;
 	private int rowsNumber;
 	
-	public Config() {
-		titleWindow = "T e t r i s";
-		widthWindow = 336;
-		heightWindow = 696;
-		yWindow = 1;
-		resizableWindow = false;
-		sizePartShap = 24;
-		columnsNumber = 10;
-		rowsNumber = 22;
-	}
-	
 	public String getTitleWindow() {
 		return titleWindow;
 	}
