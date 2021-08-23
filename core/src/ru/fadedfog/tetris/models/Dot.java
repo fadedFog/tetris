@@ -3,12 +3,15 @@ package ru.fadedfog.tetris.models;
 import com.badlogic.gdx.math.Rectangle;
 
 import ru.fadedfog.tetris.config.GameConfig;
+import ru.fadedfog.tetris.movement.MovementShape;
 
 public class Dot {
 	private Rectangle rectangle;
+	private MovementShape movement;
 	
 	public Dot() {
 		GameConfig config = GameConfig.getInstance();
+		movement = new MovementShape();
 		rectangle = new Rectangle();
 		rectangle.y = config.getHeightWindow();
 		rectangle.x = config.getWidthWindow() / 2;
@@ -16,12 +19,12 @@ public class Dot {
 		rectangle.height = config.getSizePartShap();
 	}
 
-	public Rectangle getRectangle() {
-		return rectangle;
+	public void fall() {
+		movement.fall(rectangle);
 	}
 	
-	public void reduceY() {
-		rectangle.y -= rectangle.height;
+	public Rectangle getRectangle() {
+		return rectangle;
 	}
 
 	public void setRectangle(Rectangle rectangle) {

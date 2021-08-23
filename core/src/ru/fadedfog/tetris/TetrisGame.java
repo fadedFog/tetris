@@ -40,10 +40,24 @@ public class TetrisGame extends ApplicationAdapter {
 	}
 	
 	private void update() {
-		if ((System.currentTimeMillis() - lastTime) / 1000 >= 1) {
-			dot.reduceY();
+		fallShape();
+	}
+	
+	private void fallShape() {
+		if (didTimedPass(1)) {
+			if (isTouchesFieldBounds(dot)) {
+				dot.fall();	
+			}
 			lastTime = System.currentTimeMillis();
 		}
+	}
+	
+	private boolean didTimedPass(int second) {
+		return (System.currentTimeMillis() - lastTime) / 1000 >= second;
+	}
+	
+	private boolean isTouchesFieldBounds(Dot dot) {
+		return dot.getY() >= gameField.getY() + config.getSizePartShap();
 	}
 	
 	@Override
