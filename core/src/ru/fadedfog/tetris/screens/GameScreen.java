@@ -16,11 +16,12 @@ public class GameScreen implements Screen {
 	private TetrisGame game;
 	private SpriteBatch batch;
 	private Texture spriteBorderField;
+	private Texture spriteDot;
 	private ShapeRenderer shapeRenderer;
 	
 	public GameScreen(TetrisGame game) {
 		this.game = game;
-		config = GameConfig.getGameConfig();
+		config = GameConfig.getInstance();
 		batch = game.getBatch();
 		shapeRenderer = new ShapeRenderer();
 		createSprites();
@@ -28,6 +29,7 @@ public class GameScreen implements Screen {
 	
 	private void createSprites() {
 		spriteBorderField = new Texture(Gdx.files.internal("border_field.png"));
+		spriteDot = new Texture(Gdx.files.internal("dot_green.png"));
 	}
 	
 	@Override
@@ -39,6 +41,7 @@ public class GameScreen implements Screen {
 	public void render(float delta) {
 		drawBoundField();
 		drawGridField();
+		drawDot();
 	}
 	
 	private void drawBoundField() {
@@ -66,6 +69,12 @@ public class GameScreen implements Screen {
 		shapeRenderer.end();
 	}
 
+	private void drawDot() {
+		batch.begin();
+		batch.draw(spriteDot, game.getDot().getX(), game.getDot().getY());
+		batch.end();
+	}
+	
 	@Override
 	public void resize(int width, int height) {
 		
