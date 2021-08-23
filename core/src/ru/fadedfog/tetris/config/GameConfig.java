@@ -113,4 +113,36 @@ public class GameConfig {
 		config.setRowsNumber(rowsNumber);
 	}
 	
+	public int getxGameField() {
+		return config.getxGameField();
+	}
+
+	public void setxGameField(int xGameField) {
+		config.setxGameField(xGameField);
+	}
+
+	public int getyGameField() {
+		return config.getyGameField();
+	}
+
+	public void setyGameField(int yGameField) {
+		config.setyGameField(yGameField);
+	}
+
+	public int getWidthGameField() {
+		return config.getWidthGameField();
+	}
+
+	public void setWidthGameField(int widthGameField) {
+		config.setWidthGameField(widthGameField);
+	}
+
+	public int getHeightGameField() {
+		return config.getHeightGameField();
+	}
+
+	public void setHeightGameField(int heightGameField) {
+		config.setHeightWindow(heightGameField);
+	}
+	
 }

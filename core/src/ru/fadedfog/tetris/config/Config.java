@@ -9,6 +9,10 @@ public class Config {
 	private int sizePartShap;
 	private int columnsNumber;
 	private int rowsNumber;
+	private int xGameField;
+	private int yGameField;
+	private int widthGameField;
+	private int heightGameField;
 	
 	public String getTitleWindow() {
 		return titleWindow;
@@ -73,4 +77,37 @@ public class Config {
 	public void setRowsNumber(int rowsNumber) {
 		this.rowsNumber = rowsNumber;
 	}
+
+	public int getxGameField() {
+		return xGameField;
+	}
+
+	public void setxGameField(int xGameField) {
+		this.xGameField = xGameField;
+	}
+
+	public int getyGameField() {
+		return yGameField;
+	}
+
+	public void setyGameField(int yGameField) {
+		this.yGameField = yGameField;
+	}
+
+	public int getWidthGameField() {
+		return widthGameField;
+	}
+
+	public void setWidthGameField(int widthGameField) {
+		this.widthGameField = widthGameField;
+	}
+
+	public int getHeightGameField() {
+		return heightGameField;
+	}
+
+	public void setHeightGameField(int heightGameField) {
+		this.heightGameField = heightGameField;
+	}
+	
 }
