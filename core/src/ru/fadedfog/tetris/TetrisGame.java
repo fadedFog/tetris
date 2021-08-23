@@ -41,6 +41,7 @@ public class TetrisGame extends ApplicationAdapter {
 	
 	private void update() {
 		fallShape();
+		dot.move();
 	}
 	
 	private void fallShape() {
