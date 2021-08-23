@@ -6,5 +6,9 @@
   "resizableWindow": false,
   "sizePartShap": 24,
   "columnsNumber": 10,
-  "rowsNumber": 22
+  "rowsNumber": 22,
+  "xGameField": 48,
+  "yGameField": 168,
+  "widthGameField": 240,
+  "heightGameField": 504
 }

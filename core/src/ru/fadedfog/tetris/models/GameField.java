@@ -2,11 +2,16 @@ package ru.fadedfog.tetris.models;
 
 import com.badlogic.gdx.math.Rectangle;
 
+import ru.fadedfog.tetris.config.GameConfig;
+
 public class GameField {
 	private Rectangle areaRectangle;
+	private GameConfig config;
 	
 	public GameField() {
-		areaRectangle = new Rectangle(48, 168, 240, 504);
+		config = GameConfig.getInstance();
+		areaRectangle = new Rectangle(config.getxGameField(), config.getyGameField(), 
+				config.getWidthGameField(), config.getHeightGameField());
 	}
 
 	public Rectangle getAreaRectangle() {
