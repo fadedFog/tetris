@@ -13,7 +13,7 @@ public class Dot {
 		GameConfig config = GameConfig.getInstance();
 		movement = new MovementShape();
 		rectangle = new Rectangle();
-		rectangle.y = config.getHeightWindow();
+		rectangle.y = config.getHeightWindow() - config.getSizePartShap();
 		rectangle.x = config.getWidthWindow() / 2;
 		rectangle.width = config.getSizePartShap();
 		rectangle.height = config.getSizePartShap();
@@ -21,6 +21,10 @@ public class Dot {
 
 	public void fall() {
 		movement.fall(rectangle);
+	}
+	
+	public void move() {
+		movement.move(rectangle);
 	}
 	
 	public Rectangle getRectangle() {

@@ -41,13 +41,13 @@ public class TetrisGame extends ApplicationAdapter {
 	
 	private void update() {
 		fallShape();
+		dot.move();
+		collision();
 	}
 	
 	private void fallShape() {
 		if (didTimedPass(1)) {
-			if (isTouchesFieldBounds(dot)) {
 				dot.fall();	
-			}
 			lastTime = System.currentTimeMillis();
 		}
 	}
@@ -56,8 +56,17 @@ public class TetrisGame extends ApplicationAdapter {
 		return (System.currentTimeMillis() - lastTime) / 1000 >= second;
 	}
 	
-	private boolean isTouchesFieldBounds(Dot dot) {
-		return dot.getY() >= gameField.getY() + config.getSizePartShap();
+	private void collision() {
+		int sizePartSharp = config.getSizePartShap();
+		if (dot.getX() - sizePartSharp < gameField.getX()) {
+			dot.setX(gameField.getX());
+		}
+		if (dot.getX() >= gameField.getX() + gameField.getWidth()) {
+			dot.setX(gameField.getX() + gameField.getWidth() - sizePartSharp);
+		}
+		if (dot.getY() - sizePartSharp < gameField.getY()) {
+			dot.setY(gameField.getY());
+		}
 	}
 	
 	@Override
