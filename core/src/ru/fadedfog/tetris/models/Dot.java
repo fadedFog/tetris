@@ -1,5 +1,7 @@
 package ru.fadedfog.tetris.models;
 
+import java.util.Objects;
+
 import com.badlogic.gdx.math.Rectangle;
 
 import ru.fadedfog.tetris.config.GameConfig;
@@ -49,6 +51,23 @@ public class Dot {
 	
 	public void setY(int y) {
 		rectangle.y = y;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(movement, rectangle);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Dot other = (Dot) obj;
+		return Objects.equals(movement, other.movement) && Objects.equals(rectangle, other.rectangle);
 	}
 	
 }
