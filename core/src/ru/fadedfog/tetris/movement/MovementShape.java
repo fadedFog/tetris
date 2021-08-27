@@ -9,6 +9,7 @@ import ru.fadedfog.tetris.config.GameConfig;
 public class MovementShape {
 	private final int A_KEY = Input.Keys.A;
 	private final int D_KEY = Input.Keys.D;
+	private final int SPACE = Input.Keys.SPACE;
 	private final int ANY_KEY = Input.Keys.ANY_KEY;
 	private GameConfig config;
 	private boolean isAnyKeyNotPressed;
@@ -23,8 +24,9 @@ public class MovementShape {
 	
 	public void move(Rectangle areaShape) {
 		if (isKeyAorDPressed()) { 
-			moveShape(areaShape);
+			moveShapeLeftRight(areaShape);
 		}
+		moveDown(areaShape);
 		isAnyKeyNotPressed = !Gdx.input.isKeyPressed(ANY_KEY);
 	}
 	
@@ -32,7 +34,7 @@ public class MovementShape {
 		return Gdx.input.isKeyPressed(A_KEY) || Gdx.input.isKeyPressed(D_KEY);
 	}
 	
-	private void  moveShape(Rectangle areaShape) {
+	private void  moveShapeLeftRight(Rectangle areaShape) {
 		if (isAnyKeyNotPressed) {
 			if (Gdx.input.isKeyPressed(A_KEY)) {
 				areaShape.x -= config.getSizePartShap();
@@ -42,5 +44,13 @@ public class MovementShape {
 			}
 		}
 	}
+	
+	private void moveDown(Rectangle areaShape) {
+		if (Gdx.input.isKeyPressed(SPACE)) {
+			fall(areaShape);
+		}
+	}
+	
+	
 
 }
