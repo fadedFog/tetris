@@ -44,7 +44,7 @@ public class TetrisGame extends ApplicationAdapter {
 		fallShape();
 		gameField.getUsedDot().move();
 		collision();
-		
+		gameField.getUsedDot().updateOnRow();
 		checkingStopShape();
 		removeRowOfDots();
 	}
@@ -109,7 +109,7 @@ public class TetrisGame extends ApplicationAdapter {
 	}
 	
 	private void removeRowOfDots() {
-		
+		gameField.getRowsOfDots();
 	}
 	
 	@Override

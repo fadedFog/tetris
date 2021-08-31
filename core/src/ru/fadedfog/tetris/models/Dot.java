@@ -18,7 +18,7 @@ public class Dot {
 		movement = new MovementShape();
 		rectangle = new Rectangle();
 		rectangle.y = config.getStartYDot();
-		onRow = config.getRowsNumber() - 1;
+		onRow = config.getRowsNumber();
 		rectangle.x = config.getWidthWindow() / 2;
 		rectangle.width = config.getSizePartShap();
 		rectangle.height = config.getSizePartShap();
@@ -29,10 +29,10 @@ public class Dot {
 		updateOnRow();
 	}
 	
-	private void updateOnRow() {
+	public void updateOnRow() {
 		int difference = (int) (config.getStartYDot() - getY());
 		int numberOfSteps = difference / config.getSizePartShap();
-		onRow = config.getRowsNumber() - numberOfSteps - 1;
+		onRow = config.getRowsNumber() - numberOfSteps;
 	}
 	
 	public void move() {
@@ -70,10 +70,6 @@ public class Dot {
 	public void setOnRow(int onRow) {
 		this.onRow = onRow;
 	}
-	
-//	public void decreaseOnRow() {
-//		onRow -= 1;
-//	}
 
 	@Override
 	public int hashCode() {
