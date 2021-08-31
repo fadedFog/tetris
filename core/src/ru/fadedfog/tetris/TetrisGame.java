@@ -47,7 +47,6 @@ public class TetrisGame extends ApplicationAdapter {
 		collision();
 		gameField.getUsedDot().updateOnRow();
 		checkingStopShape();
-		removeRowOfDots();
 	}
 	
 	private void fallShape() {
@@ -105,12 +104,31 @@ public class TetrisGame extends ApplicationAdapter {
 	private void checkingStopShape() {
 		if (isDotCollisionBottomBoundField(gameField.getUsedDot()) ||
 				gameField.isShapeCollisionShape()) {
+			removeRowOfDots();
 			gameField.createNewShape();
 		}
 	}
 	
 	private void removeRowOfDots() {
 		Map<Integer, List<Dot>> rowsOfDots = gameField.getRowsOfDots();
+		for (Map.Entry<Integer, List<Dot>> row: rowsOfDots.entrySet()) {
+			if (row.getValue().size() == config.getColumnsNumber()) {
+				removeDots(row.getValue());
+			}
+		}
+	}
+	
+	private void removeDots(List<Dot> removeDots) {
+		for (Dot dot: removeDots) {
+			gameField.getDots().remove(dot);
+		}
+		fallAllDots();
+	}
+	
+	private void fallAllDots() {
+		for (Dot dot: gameField.getDots()) {
+			dot.fall();
+		}
 	}
 	
 	@Override
