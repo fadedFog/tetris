@@ -1,5 +1,7 @@
 package ru.fadedfog.tetris;
 
+import java.util.List;
+
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -15,7 +17,6 @@ public class TetrisGame extends ApplicationAdapter {
 	private Screen screen;
 	private GameField gameField;
 	private GameConfig config;
-	private Dot dot;
 	private long lastTime;
 	
 	@Override
@@ -29,7 +30,7 @@ public class TetrisGame extends ApplicationAdapter {
 	
 	private void createModels() {
 		gameField = new GameField();
-		dot = new Dot();
+		gameField.createNewShape();
 	}
 
 	@Override
@@ -41,13 +42,15 @@ public class TetrisGame extends ApplicationAdapter {
 	
 	private void update() {
 		fallShape();
-		dot.move();
+		gameField.getUsedDot().move();
 		collision();
+		
+		checkingStopShape();
 	}
 	
 	private void fallShape() {
 		if (didTimedPass(1)) {
-				dot.fall();	
+				gameField.getUsedDot().fall();	
 			lastTime = System.currentTimeMillis();
 		}
 	}
@@ -57,15 +60,50 @@ public class TetrisGame extends ApplicationAdapter {
 	}
 	
 	private void collision() {
-		int sizePartSharp = config.getSizePartShap();
-		if (dot.getX() - sizePartSharp < gameField.getX()) {
-			dot.setX(gameField.getX());
+		int sizePartShape = config.getSizePartShap();
+		Dot usedDot = gameField.getUsedDot();
+		collisionBoundsField(usedDot, sizePartShape);
+		collisionFaceShapes(usedDot);
+	}
+	
+	private void collisionBoundsField(Dot usedDot, int sizePartShape) {
+		if (usedDot.getX() - sizePartShape < gameField.getX()) {
+			usedDot.setX(gameField.getX());
 		}
-		if (dot.getX() >= gameField.getX() + gameField.getWidth()) {
-			dot.setX(gameField.getX() + gameField.getWidth() - sizePartSharp);
+		if (usedDot.getX() >= gameField.getX() + gameField.getWidth()) {
+			usedDot.setX(gameField.getX() + gameField.getWidth() - sizePartShape);
 		}
-		if (dot.getY() - sizePartSharp < gameField.getY()) {
-			dot.setY(gameField.getY());
+		if (isDotCollisionBottomBoundField(usedDot)) {
+			usedDot.setY(gameField.getY());
+		}
+	}
+	
+	private void collisionFaceShapes(Dot usedDot) {
+		List<Dot> dots = gameField.getDots();
+		for (Dot dot: dots) {
+			if (isCollisionFaseShape(usedDot, dot)) {
+				usedDot.setY(dot.getY() + config.getSizePartShap());
+				gameField.setShapeCollisionShape(true);
+			}
+		}
+	}
+	
+	private boolean isCollisionFaseShape(Dot usedDot, Dot anotherDot) {
+		boolean isCollision = false;
+		if (!anotherDot.equals(usedDot)) {
+			isCollision = anotherDot.getRectangle().overlaps(usedDot.getRectangle());
+		}
+		return isCollision;
+	}
+	
+	private boolean isDotCollisionBottomBoundField(Dot usedDot) {
+		return usedDot.getY() - config.getSizePartShap() < gameField.getY();
+	}
+	
+	private void checkingStopShape() {
+		if (isDotCollisionBottomBoundField(gameField.getUsedDot()) ||
+				gameField.isShapeCollisionShape()) {
+			gameField.createNewShape();
 		}
 	}
 	
@@ -97,14 +135,6 @@ public class TetrisGame extends ApplicationAdapter {
 
 	public void setGameField(GameField gameField) {
 		this.gameField = gameField;
-	}
-
-	public Dot getDot() {
-		return dot;
-	}
-
-	public void setDot(Dot dot) {
-		this.dot = dot;
 	}
 
 }

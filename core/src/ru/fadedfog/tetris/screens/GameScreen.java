@@ -1,5 +1,7 @@
 package ru.fadedfog.tetris.screens;
 
+import java.util.List;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -10,6 +12,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 import ru.fadedfog.tetris.TetrisGame;
 import ru.fadedfog.tetris.config.GameConfig;
+import ru.fadedfog.tetris.models.Dot;
 
 public class GameScreen implements Screen {
 	private GameConfig config;
@@ -41,7 +44,7 @@ public class GameScreen implements Screen {
 	public void render(float delta) {
 		drawBoundField();
 		drawGridField();
-		drawDot();
+		drawDots();
 	}
 	
 	private void drawBoundField() {
@@ -69,9 +72,12 @@ public class GameScreen implements Screen {
 		shapeRenderer.end();
 	}
 
-	private void drawDot() {
+	private void drawDots() {
 		batch.begin();
-		batch.draw(spriteDot, game.getDot().getX(), game.getDot().getY());
+		List<Dot> dots = game.getGameField().getDots();
+		for (Dot dot: dots) {
+			batch.draw(spriteDot, dot.getX(), dot.getY());
+		}
 		batch.end();
 	}
 	
