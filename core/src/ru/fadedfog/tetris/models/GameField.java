@@ -28,7 +28,7 @@ public class GameField {
 		isShapeCollisionShape = false;
 	}
 	
-	public void getRowsOfDots() {
+	public Map<Integer, List<Dot>> getRowsOfDots() {
 		Map<Integer, List<Dot>> rowAndDots = new LinkedHashMap<>();
 		for (int i = 1; i < config.getRowsNumber(); i++) {
 			List<Dot> emptyRow = new ArrayList<>();
@@ -42,6 +42,7 @@ public class GameField {
 				}
 			}
 		}
+		return rowAndDots;
 	}
 	
 	public Rectangle getAreaRectangle() {

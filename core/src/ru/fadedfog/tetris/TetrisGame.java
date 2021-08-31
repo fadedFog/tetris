@@ -1,6 +1,7 @@
 package ru.fadedfog.tetris;
 
 import java.util.List;
+import java.util.Map;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Screen;
@@ -109,7 +110,7 @@ public class TetrisGame extends ApplicationAdapter {
 	}
 	
 	private void removeRowOfDots() {
-		gameField.getRowsOfDots();
+		Map<Integer, List<Dot>> rowsOfDots = gameField.getRowsOfDots();
 	}
 	
 	@Override
