@@ -46,11 +46,12 @@ public class TetrisGame extends ApplicationAdapter {
 		collision();
 		
 		checkingStopShape();
+		removeRowOfDots();
 	}
 	
 	private void fallShape() {
 		if (didTimedPass(1)) {
-				gameField.getUsedDot().fall();	
+			gameField.getUsedDot().fall();
 			lastTime = System.currentTimeMillis();
 		}
 	}
@@ -105,6 +106,10 @@ public class TetrisGame extends ApplicationAdapter {
 				gameField.isShapeCollisionShape()) {
 			gameField.createNewShape();
 		}
+	}
+	
+	private void removeRowOfDots() {
+		
 	}
 	
 	@Override

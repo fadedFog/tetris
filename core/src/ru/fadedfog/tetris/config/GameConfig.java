@@ -29,6 +29,10 @@ public class GameConfig {
 		writerConfig.write(config);
 	}
 	
+	public float getStartYDot() {
+		return config.getHeightWindow() - config.getSizePartShap();
+	} 
+	
 	public String getPATH_CONFIG_FILE() {
 		return PATH_CONFIG_FILE;
 	}
