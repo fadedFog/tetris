@@ -147,6 +147,7 @@ public class TetrisGame extends ApplicationAdapter {
 	private void fallAllDots() {
 		for (Dot dot: gameField.getDots()) {
 			dot.fall();
+			dot.updateOnRow();
 		}
 	}
 	
