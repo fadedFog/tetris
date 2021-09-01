@@ -26,7 +26,6 @@ public class Dot {
 
 	public void fall() {
 		movement.fall(rectangle);
-		updateOnRow();
 	}
 	
 	public void updateOnRow() {
@@ -86,6 +85,12 @@ public class Dot {
 			return false;
 		Dot other = (Dot) obj;
 		return Objects.equals(movement, other.movement) && Objects.equals(rectangle, other.rectangle);
+	}
+
+	@Override
+	public String toString() {
+		return "Dot [rectangle=" + rectangle + ", onRow=" + onRow
+				+ "]";
 	}
 	
 }

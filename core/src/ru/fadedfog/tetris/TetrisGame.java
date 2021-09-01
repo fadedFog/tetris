@@ -6,6 +6,7 @@ import java.util.Map;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 import ru.fadedfog.tetris.config.GameConfig;
@@ -17,6 +18,7 @@ public class TetrisGame extends ApplicationAdapter {
 	private SpriteBatch batch;
 	private Screen screen;
 	private GameField gameField;
+	private Rectangle dotOfPast; 
 	private GameConfig config;
 	private long lastTime;
 	
@@ -42,11 +44,22 @@ public class TetrisGame extends ApplicationAdapter {
 	}
 	
 	private void update() {
+		dotOfPast = getDotOfPast();
 		fallShape();
 		gameField.getUsedDot().move();
 		collision();
 		gameField.getUsedDot().updateOnRow();
 		checkingStopShape();
+	}
+	
+	private Rectangle getDotOfPast() {
+		Rectangle dotOfPast = new Rectangle();
+		Dot usedDot = gameField.getUsedDot();
+		dotOfPast.setX(usedDot.getX());
+		dotOfPast.setY(usedDot.getY());
+		dotOfPast.setWidth(usedDot.getRectangle().width);
+		dotOfPast.setHeight(usedDot.getRectangle().getHeight());
+		return dotOfPast;
 	}
 	
 	private void fallShape() {
@@ -83,10 +96,16 @@ public class TetrisGame extends ApplicationAdapter {
 		List<Dot> dots = gameField.getDots();
 		for (Dot dot: dots) {
 			if (isCollisionFaseShape(usedDot, dot)) {
-				usedDot.setY(dot.getY() + config.getSizePartShap());
-				gameField.setShapeCollisionShape(true);
+				if (dot.getOnRow() < usedDot.getOnRow()) {
+					dotOfPast.setY(dotOfPast.getY());
+					usedDot.setRectangle(dotOfPast);
+					gameField.setShapeCollisionShape(true);	
+				} else {
+					usedDot.setRectangle(dotOfPast);
+				}
 			}
 		}
+		
 	}
 	
 	private boolean isCollisionFaseShape(Dot usedDot, Dot anotherDot) {
