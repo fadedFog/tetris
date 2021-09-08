@@ -1,7 +1,10 @@
 package ru.fadedfog.tetris.models;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import com.badlogic.gdx.math.Rectangle;
 
@@ -23,6 +26,23 @@ public class GameField {
 	public void createNewShape() {
 		dots.add(new Dot());
 		isShapeCollisionShape = false;
+	}
+	
+	public Map<Integer, List<Dot>> getRowsOfDots() {
+		Map<Integer, List<Dot>> rowAndDots = new LinkedHashMap<>();
+		for (int i = 1; i < config.getRowsNumber(); i++) {
+			List<Dot> emptyRow = new ArrayList<>();
+			rowAndDots.put(i, emptyRow);
+		}
+		
+		for (int i = 1; i < config.getRowsNumber(); i++) {
+			for (int j = 0; j < dots.size(); j++) {
+				if (dots.get(j).getOnRow() == i) {
+					rowAndDots.get(i).add(dots.get(j));
+				}
+			}
+		}
+		return rowAndDots;
 	}
 	
 	public Rectangle getAreaRectangle() {

@@ -10,12 +10,15 @@ import ru.fadedfog.tetris.movement.MovementShape;
 public class Dot {
 	private Rectangle rectangle;
 	private MovementShape movement;
+	private GameConfig config;
+	private int onRow;
 	
 	public Dot() {
-		GameConfig config = GameConfig.getInstance();
+		config = GameConfig.getInstance();
 		movement = new MovementShape();
 		rectangle = new Rectangle();
-		rectangle.y = config.getHeightWindow() - config.getSizePartShap();
+		rectangle.y = config.getStartYDot();
+		onRow = config.getRowsNumber();
 		rectangle.x = config.getWidthWindow() / 2;
 		rectangle.width = config.getSizePartShap();
 		rectangle.height = config.getSizePartShap();
@@ -23,6 +26,12 @@ public class Dot {
 
 	public void fall() {
 		movement.fall(rectangle);
+	}
+	
+	public void updateOnRow() {
+		int difference = (int) (config.getStartYDot() - getY());
+		int numberOfSteps = difference / config.getSizePartShap();
+		onRow = config.getRowsNumber() - numberOfSteps;
 	}
 	
 	public void move() {
@@ -53,6 +62,14 @@ public class Dot {
 		rectangle.y = y;
 	}
 
+	public int getOnRow() {
+		return onRow;
+	}
+
+	public void setOnRow(int onRow) {
+		this.onRow = onRow;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(movement, rectangle);
@@ -68,6 +85,12 @@ public class Dot {
 			return false;
 		Dot other = (Dot) obj;
 		return Objects.equals(movement, other.movement) && Objects.equals(rectangle, other.rectangle);
+	}
+
+	@Override
+	public String toString() {
+		return "Dot [rectangle=" + rectangle + ", onRow=" + onRow
+				+ "]";
 	}
 	
 }
