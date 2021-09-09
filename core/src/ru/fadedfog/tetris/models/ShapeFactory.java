@@ -11,25 +11,15 @@ public class ShapeFactory {
 	}
 	
 	private Dot[] getStateDotsOfShape(TypeShape type) {
-		Dot[] dotsOfShape = null;
-		
-		switch(type) {
-			case J:
-				break;
-			case I:
-				break;
-			case O:
-				break;
-			case L:
-				break;
-			case Z:
-				break;
-			case T:
-				break;
-			case S:
-				break;
+		Dot mainDot = new Dot();
+		int[][] dotsPositionsOfShape = type.getDotsPositionsOfShape(mainDot);
+		Dot[] dotsOfShape = new Dot[dotsPositionsOfShape.length];
+		for (int i = 0; i < dotsPositionsOfShape.length; i++) {
+			Dot dot = new Dot();
+			dot.setX(dotsPositionsOfShape[i][0]);
+			dot.setY(dotsPositionsOfShape[i][1]);
+			dotsOfShape[i] = dot;
 		}
-		
 		return  dotsOfShape;
 	}
 
