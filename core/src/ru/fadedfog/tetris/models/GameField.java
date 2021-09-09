@@ -5,18 +5,22 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import com.badlogic.gdx.math.Rectangle;
 
 import ru.fadedfog.tetris.config.GameConfig;
 
 public class GameField {
+	private ShapeFactory shapeFactory;
+	private Shape usedShape;
 	private Rectangle areaRectangle;
 	private GameConfig config;
 	private List<Dot> dots;
 	private boolean isShapeCollisionShape;
 	
 	public GameField() {
+		shapeFactory = new ShapeFactory();
 		config = GameConfig.getInstance();
 		areaRectangle = new Rectangle(config.getxGameField(), config.getyGameField(), 
 				config.getWidthGameField(), config.getHeightGameField());
@@ -26,6 +30,25 @@ public class GameField {
 	public void createNewShape() {
 		dots.add(new Dot());
 		isShapeCollisionShape = false;
+	}
+	
+	public void createNewSHAPE() {
+		TypeShape typeShape = getRandomTypeShape();
+		usedShape = shapeFactory.createShape(typeShape);
+		addingNewDots();
+	}
+	
+	private void addingNewDots() {
+		for (Dot dot: usedShape.getDots()) {
+			dots.add(dot);
+		}
+	}
+	
+	private TypeShape getRandomTypeShape() {
+		int numberAllTypes = TypeShape.values().length;
+		Random random = new Random();
+		int numberType = random.nextInt(numberAllTypes);
+		return TypeShape.values()[numberType];
 	}
 	
 	public Map<Integer, List<Dot>> getRowsOfDots() {
@@ -103,6 +126,10 @@ public class GameField {
 
 	public void setShapeCollisionShape(boolean isShapeCollisionShape) {
 		this.isShapeCollisionShape = isShapeCollisionShape;
+	}
+
+	public Shape getUsedShape() {
+		return usedShape;
 	}
 	
 }

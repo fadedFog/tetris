@@ -78,6 +78,7 @@ public class GameScreen implements Screen {
 		for (Dot dot: dots) {
 			batch.draw(spriteDot, dot.getX(), dot.getY());
 		}
+		
 		batch.end();
 	}
 	

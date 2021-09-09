@@ -34,6 +34,8 @@ public class TetrisGame extends ApplicationAdapter {
 	private void createModels() {
 		gameField = new GameField();
 		gameField.createNewShape();
+		
+		gameField.createNewSHAPE();
 	}
 
 	@Override

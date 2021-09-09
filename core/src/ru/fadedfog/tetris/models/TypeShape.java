@@ -95,7 +95,7 @@ public enum TypeShape {
 		}
 	};
 	
-	public static final int ROWS_ARRAY_OF_DOTS = 3;
+	public static final int ROWS_ARRAY_OF_DOTS = 4;
 	public static final int SIZE_COORD_DOTS = 2; 
 	private static GameConfig config = GameConfig.getInstance();
 	
