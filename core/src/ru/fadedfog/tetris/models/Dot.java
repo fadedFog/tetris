@@ -8,6 +8,7 @@ import ru.fadedfog.tetris.config.GameConfig;
 import ru.fadedfog.tetris.movement.MovementShape;
 
 public class Dot {
+	private Rectangle previousCoord;
 	private Rectangle rectangle;
 	private MovementShape movement;
 	private GameConfig config;
@@ -22,9 +23,17 @@ public class Dot {
 		rectangle.x = config.getWidthWindow() / 2;
 		rectangle.width = config.getSizePartShap();
 		rectangle.height = config.getSizePartShap();
+		previousCoord = new Rectangle();
+		setPreCoord();
+	}
+	
+	private void setPreCoord() {
+		previousCoord.y = rectangle.getY();
+		previousCoord.x = rectangle.getX();
 	}
 
 	public void fall() {
+		setPreCoord();
 		movement.fall(rectangle);
 	}
 	
@@ -35,9 +44,18 @@ public class Dot {
 	}
 	
 	public void move() {
+		setPreCoord();
 		movement.move(rectangle);
 	}
 	
+	public Rectangle getPreviousCoord() {
+		return previousCoord;
+	}
+
+	public void setPreviousCoord(Rectangle previousCoord) {
+		this.previousCoord = previousCoord;
+	}
+
 	public Rectangle getRectangle() {
 		return rectangle;
 	}

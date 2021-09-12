@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import ru.fadedfog.tetris.config.GameConfig;
 import ru.fadedfog.tetris.models.Dot;
 import ru.fadedfog.tetris.models.GameField;
+import ru.fadedfog.tetris.models.Shape;
 import ru.fadedfog.tetris.screens.GameScreen;
 
 public class TetrisGame extends ApplicationAdapter {
@@ -45,6 +46,7 @@ public class TetrisGame extends ApplicationAdapter {
 	
 	private void update() {
 		fallShape();
+		collision();
 	}
 	
 	private Rectangle getDotOfPast() {
@@ -59,7 +61,6 @@ public class TetrisGame extends ApplicationAdapter {
 	
 	private void fallShape() {
 		if (didTimedPass(1)) {
-//			gameField.getUsedDot().fall();
 			gameField.getUsedShape().fall();
 			lastTime = System.currentTimeMillis();
 		}
@@ -71,9 +72,24 @@ public class TetrisGame extends ApplicationAdapter {
 	
 	private void collision() {
 		int sizePartShape = config.getSizePartShap();
-		Dot usedDot = gameField.getUsedDot();
-		collisionBoundsField(usedDot, sizePartShape);
-		collisionFaceShapes(usedDot);
+		Shape usedShape = gameField.getUsedShape();
+		collisionBoundsField(usedShape, sizePartShape);
+//		collisionFaceShapes(usedDot);
+	}
+	
+	private void collisionBoundsField(Shape usedShape, int sizePartShape) {
+		for (Dot dot: usedShape.getDots()) {
+			if (isDotCollisionBottomBoundField(dot)) {
+				setPrevCoords(usedShape.getDots(), dot);
+				break;
+			}
+		}
+	}
+	
+	private void setPrevCoords(Dot[] dots, Dot dotTouched) {
+		for (Dot dot: dots) {
+			dot.setY((int) dot.getPreviousCoord().getY());
+		}
 	}
 	
 	private void collisionBoundsField(Dot usedDot, int sizePartShape) {
@@ -113,7 +129,7 @@ public class TetrisGame extends ApplicationAdapter {
 	}
 	
 	private boolean isDotCollisionBottomBoundField(Dot usedDot) {
-		return usedDot.getY() - config.getSizePartShap() < gameField.getY();
+		return usedDot.getY() < gameField.getY();
 	}
 	
 	private void checkingStopShape() {
