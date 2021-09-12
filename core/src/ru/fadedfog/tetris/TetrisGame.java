@@ -34,8 +34,6 @@ public class TetrisGame extends ApplicationAdapter {
 	private void createModels() {
 		gameField = new GameField();
 		gameField.createNewShape();
-		
-		gameField.createNewSHAPE();
 	}
 
 	@Override
@@ -46,12 +44,7 @@ public class TetrisGame extends ApplicationAdapter {
 	}
 	
 	private void update() {
-		dotOfPast = getDotOfPast();
 		fallShape();
-		gameField.getUsedDot().move();
-		collision();
-		gameField.getUsedDot().updateOnRow();
-		checkingStopShape();
 	}
 	
 	private Rectangle getDotOfPast() {
@@ -66,7 +59,8 @@ public class TetrisGame extends ApplicationAdapter {
 	
 	private void fallShape() {
 		if (didTimedPass(1)) {
-			gameField.getUsedDot().fall();
+//			gameField.getUsedDot().fall();
+			gameField.getUsedShape().fall();
 			lastTime = System.currentTimeMillis();
 		}
 	}

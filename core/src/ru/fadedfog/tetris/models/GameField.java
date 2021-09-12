@@ -28,11 +28,6 @@ public class GameField {
 	}
 
 	public void createNewShape() {
-		dots.add(new Dot());
-		isShapeCollisionShape = false;
-	}
-	
-	public void createNewSHAPE() {
 		TypeShape typeShape = getRandomTypeShape();
 		usedShape = shapeFactory.createShape(typeShape);
 		addingNewDots();
