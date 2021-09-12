@@ -4,6 +4,12 @@ public class Shape {
 	private TypeShape typeShape;
 	private Dot[] dots;
 
+	public void fall() {
+		for (Dot dot: dots) {
+			dot.fall();
+		}
+	}
+	
 	public TypeShape getTypeShape() {
 		return typeShape;
 	}
