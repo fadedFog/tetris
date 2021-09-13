@@ -10,6 +10,12 @@ public class Shape {
 		}
 	}
 	
+	public void move() {
+		for (Dot dot: dots) {
+			dot.move();
+		}
+	}
+	
 	public TypeShape getTypeShape() {
 		return typeShape;
 	}
