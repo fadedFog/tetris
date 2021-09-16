@@ -49,6 +49,7 @@ public class TetrisGame extends ApplicationAdapter {
 		fallShape();
 		gameField.getUsedShape().move();
 		collision();
+		checkingStopShape();
 	}
 	
 	private void setPrevCoords() {
@@ -158,11 +159,17 @@ public class TetrisGame extends ApplicationAdapter {
 	}
 	
 	private void checkingStopShape() {
-		if (isDotCollisionBottomBoundField(gameField.getUsedDot()) ||
-				gameField.isShapeCollisionShape()) {
-			removeRowOfDots();
-			gameField.createNewShape();
+		Shape usedShape = gameField.getUsedShape();
+		for (Dot dot: usedShape.getDots()) {
+			if (isWasCollisionBottomBoundField(dot)) {
+				gameField.createNewShape();
+				break;
+			}
 		}
+	}
+	
+	private boolean isWasCollisionBottomBoundField(Dot dot) {
+		return dot.getY() == gameField.getY();
 	}
 	
 	private void removeRowOfDots() {
