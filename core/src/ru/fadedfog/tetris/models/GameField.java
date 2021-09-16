@@ -33,17 +33,17 @@ public class GameField {
 		addingNewDots();
 	}
 	
-	private void addingNewDots() {
-		for (Dot dot: usedShape.getDots()) {
-			dots.add(dot);
-		}
-	}
-	
 	private TypeShape getRandomTypeShape() {
 		int numberAllTypes = TypeShape.values().length;
 		Random random = new Random();
 		int numberType = random.nextInt(numberAllTypes);
 		return TypeShape.values()[numberType];
+	}
+	
+	private void addingNewDots() {
+		for (Dot dot: usedShape.getDots()) {
+			dots.add(dot);
+		}
 	}
 	
 	public Map<Integer, List<Dot>> getRowsOfDots() {

@@ -92,6 +92,16 @@ public class TetrisGame extends ApplicationAdapter {
  		}
 	}
 	
+	private boolean isDotCollisionBottomBoundField(Dot usedDot) {
+		return usedDot.getY() < gameField.getY();
+	}
+	
+	private void setPrevCoords(Dot[] dots) {
+		for (Dot dot: dots) {
+			dot.setY((int) dot.getPreviousCoord().getY());
+		}
+	}
+	
 	private boolean isDotCollisionLeftBound(Dot dot) {
 		return dot.getX() < gameField.getX();
 	}
@@ -109,12 +119,6 @@ public class TetrisGame extends ApplicationAdapter {
 	private void setPositionDotsByRightBound(Shape usedShape, int sizePartShape) {
 		for (Dot dot: usedShape.getDots()) {
 			dot.setX(dot.getX() - sizePartShape);
-		}
-	}
-	
-	private void setPrevCoords(Dot[] dots) {
-		for (Dot dot: dots) {
-			dot.setY((int) dot.getPreviousCoord().getY());
 		}
 	}
 	
@@ -152,10 +156,6 @@ public class TetrisGame extends ApplicationAdapter {
 			isCollision = anotherDot.getRectangle().overlaps(usedDot.getRectangle());
 		}
 		return isCollision;
-	}
-	
-	private boolean isDotCollisionBottomBoundField(Dot usedDot) {
-		return usedDot.getY() < gameField.getY();
 	}
 	
 	private void checkingStopShape() {
