@@ -18,10 +18,6 @@ public class MovementShape {
 		config = GameConfig.getInstance();
 	}
 	
-	public void fall(Rectangle areaShape) {
-		areaShape.y -= areaShape.height;
-	}
-	
 	public void move(Rectangle areaShape) {
 		if (isKeyAorDPressed()) { 
 			moveShapeLeftRight(areaShape);
@@ -51,6 +47,8 @@ public class MovementShape {
 		}
 	}
 	
-	
+	public void fall(Rectangle areaShape) {
+		areaShape.y -= areaShape.height;
+	}
 
 }

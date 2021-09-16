@@ -27,13 +27,12 @@ public class Dot {
 		setPreCoord();
 	}
 	
-	private void setPreCoord() {
+	public void setPreCoord() {
 		previousCoord.y = rectangle.getY();
 		previousCoord.x = rectangle.getX();
 	}
 
 	public void fall() {
-		setPreCoord();
 		movement.fall(rectangle);
 	}
 	
@@ -44,7 +43,6 @@ public class Dot {
 	}
 	
 	public void move() {
-		setPreCoord();
 		movement.move(rectangle);
 	}
 	
