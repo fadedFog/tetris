@@ -5,9 +5,15 @@ public class ShapeFactory {
 	public Shape createShape(TypeShape type) {
 		Shape shape = new Shape();
 		shape.setTypeShape(type);
+		shape.setNumberSide(type.getCountNumberSides());
 		Dot[] dotsOfShape = getStateDotsOfShape(type);
 		shape.setDots(dotsOfShape);
+		setIdMainDot(shape);
 		return shape;
+	}
+	
+	private void setIdMainDot(Shape shape) {
+		shape.setIdMainDot(0);
 	}
 	
 	private Dot[] getStateDotsOfShape(TypeShape type) {
@@ -22,9 +28,16 @@ public class ShapeFactory {
 			dot.setY(dotsPositionsOfShape[i][1]);
 			dotsOfShape[i] = dot;
 		}
+		
 		dotsOfShape[dotsOfShape.length - 1] = mainDot;
 
-		return  dotsOfShape;
+		Dot[] resultDots = new Dot[dotsOfShape.length];
+		resultDots[0] = dotsOfShape[dotsOfShape.length - 1];
+		for (int i = 1; i < resultDots.length; i++) {
+			resultDots[i] = dotsOfShape[i - 1];
+		}
+		
+		return  resultDots;
 	}
 
 }
