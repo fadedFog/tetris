@@ -28,8 +28,7 @@ public class GameField {
 	}
 
 	public void createNewShape() {
-//		TypeShape typeShape = getRandomTypeShape();
-		TypeShape typeShape = TypeShape.O; //TODO REMOVE
+		TypeShape typeShape = getRandomTypeShape();
 		usedShape = shapeFactory.createShape(typeShape);
 		addingNewDots();
 	}
