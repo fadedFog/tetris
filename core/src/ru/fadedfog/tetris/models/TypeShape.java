@@ -105,4 +105,14 @@ public enum TypeShape {
 		return new int[ROWS_ARRAY_OF_DOTS][SIZE_COORD_DOTS];
 	}
 	
+	public int getCountNumberSides() {
+		int countNumberSides;
+		if (this.equals(Z) || this.equals(S)) {
+			countNumberSides = 2;
+		} else {
+			countNumberSides = 4;
+		}
+		return countNumberSides;
+	}
+	
 }

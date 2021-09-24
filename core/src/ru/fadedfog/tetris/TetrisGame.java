@@ -48,6 +48,7 @@ public class TetrisGame extends ApplicationAdapter {
 		setPrevCoords();
 		fallShape();
 		gameField.getUsedShape().move();
+		gameField.getUsedShape().rotate();
 		collision();
 		checkingStopShape();
 	}
