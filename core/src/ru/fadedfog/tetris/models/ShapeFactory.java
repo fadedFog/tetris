@@ -5,7 +5,7 @@ public class ShapeFactory {
 	public Shape createShape(TypeShape type) {
 		Shape shape = new Shape();
 		shape.setTypeShape(type);
-		shape.setNumberSide(type.getCountNumberSides());
+		shape.setNumberSide(2);
 		Dot[] dotsOfShape = getStateDotsOfShape(type);
 		shape.setDots(dotsOfShape);
 		setIdMainDot(shape);

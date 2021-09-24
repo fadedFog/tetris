@@ -14,9 +14,9 @@ public class PositionsDots {
 	
 	public int[] getYPositionsDots(TypeShape typeShape, int numberSide) {
 		int[] yPositions = new int[4];
+		yPositions[0] = 0;
 		switch (typeShape) {
 			case I:
-				yPositions[0] = 0;
 				if (numberSide == 1) {
 					for (int i = 1; i < yPositions.length; i++) {
 						yPositions[i] = yPositions[i - 1] + sizeDot;
@@ -28,6 +28,15 @@ public class PositionsDots {
 				}
 				break;
 			case J:
+				if (numberSide == 1) {
+					setValuesInPositions(yPositions, 0, sizeDot, sizeDot * 2);
+				} else if (numberSide == 2) {
+					setValuesInPositions(yPositions, -sizeDot, 0, 0);
+				} else if (numberSide == 3) {
+					setValuesInPositions(yPositions, 0, -sizeDot, -sizeDot * 2);
+				} else if (numberSide == 4) {
+					setValuesInPositions(yPositions, sizeDot, 0, 0);
+				}
 				break;
 			case L:
 				break;
@@ -36,7 +45,6 @@ public class PositionsDots {
 			case Z:
 				break;
 			case T:
-				yPositions[0] = 0;
 				if (numberSide == 1) {
 					setValuesInPositions(yPositions, sizeDot, sizeDot, sizeDot);
 				} else if (numberSide == 2 || numberSide == 4) {
@@ -58,6 +66,7 @@ public class PositionsDots {
 
 	public int[] getXPositionsDots(TypeShape typeShape, int numberSide) {
 		int[] xPositions = new int[4];
+		xPositions[0] = 0;
 		switch (typeShape) {
 			case I:
 				if (numberSide == 1) {
@@ -71,6 +80,15 @@ public class PositionsDots {
 				}
 				break;
 			case J:
+				if (numberSide == 1) {
+					setValuesInPositions(xPositions, -sizeDot, 0, 0);
+				} else if (numberSide == 2) {
+					setValuesInPositions(xPositions, 0, -sizeDot, -sizeDot * 2);
+				} else if (numberSide == 3) {
+					setValuesInPositions(xPositions, sizeDot, 0, 0);
+				} else if (numberSide == 4) {
+					setValuesInPositions(xPositions, 0, sizeDot, sizeDot * 2);
+				}
 				break;
 			case L:
 				break;
@@ -79,7 +97,6 @@ public class PositionsDots {
 			case Z:
 				break;
 			case T:
-				xPositions[0] = 0;
 				if (numberSide == 1 || numberSide == 3) {
 					setValuesInPositions(xPositions, -sizeDot, 0, sizeDot);
 				} else if (numberSide == 2) {
