@@ -52,6 +52,11 @@ public class PositionsDots {
 			case S:
 				break;
 			case Z:
+				if (numberSide == 1) {
+					setValuesInPositions(yPositions, 0, 24, 24);
+				} else if (numberSide == 2) {
+					setValuesInPositions(yPositions, 24, 0, -24);
+				}
 				break;
 			case T:
 				if (numberSide == 1) {
@@ -113,6 +118,11 @@ public class PositionsDots {
 			case S:
 				break;
 			case Z:
+				if (numberSide == 1) {
+					setValuesInPositions(xPositions, 24, 0, -24);
+				} else if (numberSide == 2) {
+					setValuesInPositions(xPositions, 0, -24, -24);
+				}
 				break;
 			case T:
 				if (numberSide == 1 || numberSide == 3) {

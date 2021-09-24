@@ -107,7 +107,7 @@ public enum TypeShape {
 	
 	public int getCountNumberSides() {
 		int countNumberSides;
-		if (this.equals(I)) {
+		if (this.equals(I) || this.equals(Z) || this.equals(S)) {
 			countNumberSides = 2;
 		} else {
 			countNumberSides = 4;
