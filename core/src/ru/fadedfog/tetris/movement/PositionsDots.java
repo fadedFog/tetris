@@ -39,6 +39,15 @@ public class PositionsDots {
 				}
 				break;
 			case L:
+				if (numberSide == 1) {
+					setValuesInPositions(yPositions, 0, sizeDot, sizeDot * 2);
+				} else if (numberSide == 2) {
+					setValuesInPositions(yPositions, sizeDot, 0, 0);
+				} else if (numberSide == 3) {
+					setValuesInPositions(yPositions, 0, -sizeDot, -sizeDot * 2);
+				} else if (numberSide == 4) {
+					setValuesInPositions(yPositions, -sizeDot, 0, 0);
+				}
 				break;
 			case S:
 				break;
@@ -91,6 +100,15 @@ public class PositionsDots {
 				}
 				break;
 			case L:
+				if (numberSide == 1) {
+					setValuesInPositions(xPositions, sizeDot, 0, 0);
+				} else if (numberSide == 2) {
+					setValuesInPositions(xPositions, 0, -sizeDot, -sizeDot * 2);
+				} else if (numberSide == 3) {
+					setValuesInPositions(xPositions, -sizeDot, 0, 0);
+				} else if (numberSide == 4) {
+					setValuesInPositions(xPositions, 0, sizeDot, sizeDot * 2);
+				}
 				break;
 			case S:
 				break;
