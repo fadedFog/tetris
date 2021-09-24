@@ -69,8 +69,10 @@ public class PositionsDots {
 				} else if (numberSide == 3) {
 					setValuesInPositions(yPositions, -sizeDot, -sizeDot, -sizeDot);
 				}
-
 				break;
+			default:
+				setValuesInPositions(yPositions, 0, 24, 24);
+					
 		}
 		return yPositions;
 	}
@@ -139,6 +141,8 @@ public class PositionsDots {
 					setValuesInPositions(xPositions, sizeDot, sizeDot, sizeDot);
 				}
 				break;
+			default:
+				setValuesInPositions(xPositions, -24, 0, -24);
 		}
 		return xPositions;
 	}
