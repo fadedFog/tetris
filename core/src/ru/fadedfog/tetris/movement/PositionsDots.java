@@ -18,13 +18,11 @@ public class PositionsDots {
 		switch (typeShape) {
 			case I:
 				if (numberSide == 1) {
-					for (int i = 1; i < yPositions.length; i++) {
-						yPositions[i] = yPositions[i - 1] + sizeDot;
-					}
-				} else {
-					for (int i = 0; i < yPositions.length; i++) {
-						yPositions[i] = 0;
-					}
+					setValuesInPositions(yPositions, sizeDot, sizeDot * 2, sizeDot * 3);
+				} else if (numberSide == 2 || numberSide == 4) {
+					setValuesInPositions(yPositions, 0, 0, 0);
+				} else if (numberSide == 3) {
+					setValuesInPositions(yPositions, -sizeDot, -sizeDot * 2, -sizeDot * 3);
 				}
 				break;
 			case J:
@@ -88,14 +86,12 @@ public class PositionsDots {
 		xPositions[0] = 0;
 		switch (typeShape) {
 			case I:
-				if (numberSide == 1) {
-					for (int i = 0; i < xPositions.length; i++) {
-						xPositions[i] = 0;
-					}
-				} else {
-					for (int i = 1; i < xPositions.length; i++) {
-						xPositions[i] = xPositions[i - 1]  + sizeDot;
-					}
+				if (numberSide == 1 || numberSide == 3) {
+					setValuesInPositions(xPositions, 0, 0, 0);
+				} else if (numberSide == 2) {
+					setValuesInPositions(xPositions, sizeDot, sizeDot * 2, sizeDot * 3);
+				} else if (numberSide == 4) {
+					setValuesInPositions(xPositions, -sizeDot, -sizeDot * 2, -sizeDot * 3);
 				}
 				break;
 			case J:

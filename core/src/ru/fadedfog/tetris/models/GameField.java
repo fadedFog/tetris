@@ -29,7 +29,7 @@ public class GameField {
 
 	public void createNewShape() {
 //		TypeShape typeShape = getRandomTypeShape();
-		TypeShape typeShape = TypeShape.S; //TODO REMOVE
+		TypeShape typeShape = TypeShape.I; //TODO REMOVE
 		usedShape = shapeFactory.createShape(typeShape);
 		addingNewDots();
 	}
