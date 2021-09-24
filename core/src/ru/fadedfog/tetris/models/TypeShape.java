@@ -106,11 +106,11 @@ public enum TypeShape {
 	}
 	
 	public int getCountNumberSides() {
-		int countNumberSides = 1;
-		switch (this) {
-			case I:
-				countNumberSides = 2;
-				break;
+		int countNumberSides;
+		if (this.equals(I)) {
+			countNumberSides = 2;
+		} else {
+			countNumberSides = 4;
 		}
 		return countNumberSides;
 	}

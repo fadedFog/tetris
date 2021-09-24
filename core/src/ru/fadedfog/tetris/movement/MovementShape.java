@@ -33,7 +33,6 @@ public class MovementShape {
 	
 	private void rotateShape(Shape shape) {
 		if (isAnyKeyNotPressed) {
-			
 			int[] xPositions = positionsDots.getXPositionsDots(shape.getTypeShape(), 
 					shape.getNumberSide());
 			int[] yPositions = positionsDots.getYPositionsDots(shape.getTypeShape(), 
