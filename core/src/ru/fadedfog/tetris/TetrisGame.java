@@ -74,7 +74,7 @@ public class TetrisGame extends ApplicationAdapter {
 		int sizePartShape = config.getSizePartShap();
 		Shape usedShape = gameField.getUsedShape();
 		collisionBoundsField(usedShape, sizePartShape);
-//		collisionFaceShapes(usedDot);
+//		collisionFaceShapes(usedShape);
 	}
 	
 	private void collisionBoundsField(Shape usedShape, int sizePartShape) {
@@ -120,18 +120,6 @@ public class TetrisGame extends ApplicationAdapter {
 	private void setPositionDotsByRightBound(Shape usedShape, int sizePartShape) {
 		for (Dot dot: usedShape.getDots()) {
 			dot.setX(dot.getX() - sizePartShape);
-		}
-	}
-	
-	private void collisionBoundsField(Dot usedDot, int sizePartShape) {
-		if (usedDot.getX() - sizePartShape < gameField.getX()) {
-			usedDot.setX(gameField.getX());
-		}
-		if (usedDot.getX() >= gameField.getX() + gameField.getWidth()) {
-			usedDot.setX(gameField.getX() + gameField.getWidth() - sizePartShape);
-		}
-		if (isDotCollisionBottomBoundField(usedDot)) {
-			usedDot.setY(gameField.getY());
 		}
 	}
 	
