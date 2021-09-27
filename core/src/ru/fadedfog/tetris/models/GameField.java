@@ -31,6 +31,8 @@ public class GameField {
 		TypeShape typeShape = getRandomTypeShape();
 		usedShape = shapeFactory.createShape(typeShape);
 		addingNewDots();
+		
+		isShapeCollisionShape = false;
 	}
 	
 	private TypeShape getRandomTypeShape() {
