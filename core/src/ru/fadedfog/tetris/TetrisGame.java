@@ -1,5 +1,7 @@
 package ru.fadedfog.tetris;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -86,12 +88,10 @@ public class TetrisGame extends ApplicationAdapter {
 			
 			if (isDotCollisionLeftBound(dot)) {
 				setPositionDotsByLeftBound(usedShape, sizePartShape);
-				gameField.setShapeCollisionShape(true);
 			}
 			
 			if (isDotCollisionRightBound(dot)) {
 				setPositionDotsByRightBound(usedShape, sizePartShape);
-				gameField.setShapeCollisionShape(true);
 			}
  		}
 	}
@@ -127,43 +127,59 @@ public class TetrisGame extends ApplicationAdapter {
 	}
 	
 	private void collisionFaceShapes(Shape usedShape) {
-		List<Dot> dotsField = gameField.getDots();
-		if (isCollisionFaceOnSameRow(usedShape, dotsField)) {
-			for (Dot dot: usedShape.getDots()) {
-				dot.setRectangle(dot.getPreviousCoord());
-			}
-		} else if (isCollisionUpperRow(usedShape, dotsField)) {
+		List<Dot> dotsField = getDotsWithoutShapeDots(usedShape, gameField.getDots());
+		
+		if (isCollisionUpperRow(usedShape, dotsField)) {
 			for (Dot dot: usedShape.getDots()) {
 				dot.setRectangle(dot.getPreviousCoord());
 			}
 			gameField.setShapeCollisionShape(true);	
-		}
+		} 
 		
-		
-//		List<Dot> dots = gameField.getDots();
-//		for (Dot dot: dots) {
-//			if (isCollisionFaseShape(usedShape, dot)) {
-//				gameField.setShapeCollisionShape(true);	
-//			}
-//		}
 	}
 	
-	private int isRowDotBiggerAnother(Dot dot, Dot anotherDot) {
-		int result = 0;
-		if (dot.getOnRow() > anotherDot.getOnRow()) {
-			result = 1;
-		} else if (dot.getOnRow() < anotherDot.getOnRow()) {
-			result = -1;
+	private List<Dot> getDotsWithoutShapeDots(Shape shape, List<Dot> dots) {
+		List<Integer> idDotShape = new ArrayList<>();
+		for (int i = 0; i < shape.getDots().length; i++) {
+			for (int j = 0; j < dots.size(); j++) {
+				if (shape.getDots()[i].equals(dots.get(j))) {
+					idDotShape.add(j);
+				}
+			}
 		}
-		return result;
+		
+		List<Dot> resultDots = new ArrayList<>();
+		for (int i = 0; i < dots.size(); i++) {
+			if (!idDotShape.contains(i)) {
+				resultDots.add(dots.get(i));
+			}
+		}
+		
+		return resultDots;
+	}
+	
+	private boolean isCollisionUpperRow(Shape usedShape, List<Dot> dotsField) {
+		boolean isCollision = false;
+		for (Dot dot: dotsField) {
+			if (isUpperShapeCollisionDot(usedShape, dot)) {
+				isCollision = true;
+			}
+		}
+		return isCollision;
+	}
+	
+	private boolean isUpperShapeCollisionDot(Shape usedShape, Dot dot) {
+		boolean isUpperCollision = false;
+		for (Dot dotShape: usedShape.getDots()) {
+			if (dotShape.getY() == dot.getY() && dotShape.getPreviousCoord().x == dot.getX()) {
+				isUpperCollision = true;
+			}
+			
+		}
+		return isUpperCollision;
 	}
 	
 	private boolean isCollisionFaceOnSameRow(Shape usedShape, List<Dot> dotsField) {
-		return false;
-	}
-	
-	
-	private boolean isCollisionUpperRow(Shape usedShape, List<Dot> dotsField) {
 		return false;
 	}
 	
@@ -180,13 +196,6 @@ public class TetrisGame extends ApplicationAdapter {
 	}
 	
 	private void checkingStopShape() {
-//		Shape usedShape = gameField.getUsedShape();
-//		for (Dot dot: usedShape.getDots()) {
-//			if (isWasCollisionBottomBoundField(dot)) {
-//				gameField.createNewShape();
-//				break;
-//			}
-//		}
 		if (gameField.isShapeCollisionShape()) {
 			gameField.createNewShape();
 		}
