@@ -134,8 +134,11 @@ public class TetrisGame extends ApplicationAdapter {
 				dot.setRectangle(dot.getPreviousCoord());
 			}
 			gameField.setShapeCollisionShape(true);	
-		} 
-		
+		} else if (isRightSideShapeCollisionDot(usedShape, dotsField)) {
+			changeXDotsShape(usedShape.getDots(), -24);
+		} else if (isLeftSideShapeCollisionDot(usedShape, dotsField)) {
+			changeXDotsShape(usedShape.getDots(), 24);
+		}
 	}
 	
 	private List<Dot> getDotsWithoutShapeDots(Shape shape, List<Dot> dots) {
@@ -179,8 +182,34 @@ public class TetrisGame extends ApplicationAdapter {
 		return isUpperCollision;
 	}
 	
-	private boolean isCollisionFaceOnSameRow(Shape usedShape, List<Dot> dotsField) {
+	private boolean isRightSideShapeCollisionDot(Shape usedShape, List<Dot> dots) {
+		for (Dot dot: dots) {
+			for (Dot dotShape: usedShape.getDots()) {
+				float xPrevCoord = dotShape.getPreviousCoord().getX();
+				if (dotShape.getX() == dot.getX() && xPrevCoord < dot.getX() && dotShape.getPreviousCoord().getY() == dot.getY()) {
+					return true;
+				}
+			}
+		}
 		return false;
+	}
+	
+	private boolean isLeftSideShapeCollisionDot(Shape usedShape, List<Dot> dots) {
+		for (Dot dot: dots) {
+			for (Dot dotShape: usedShape.getDots()) {
+				float xPrevCoord = dotShape.getPreviousCoord().getX();
+				if (dotShape.getX() == dot.getX() && xPrevCoord > dot.getX() && dotShape.getPreviousCoord().getY() == dot.getY()) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	private void changeXDotsShape(Dot[] dots, int to) {
+		for (Dot dot: dots) {
+			dot.setX(dot.getX() + to);
+		}
 	}
 	
 	private boolean isCollisionFaseShape(Shape usedShape, Dot anotherDot) {
