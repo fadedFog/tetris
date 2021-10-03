@@ -1,7 +1,6 @@
 package ru.fadedfog.tetris;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +14,7 @@ import ru.fadedfog.tetris.config.GameConfig;
 import ru.fadedfog.tetris.models.Dot;
 import ru.fadedfog.tetris.models.GameField;
 import ru.fadedfog.tetris.models.Shape;
+import ru.fadedfog.tetris.movement.PositionsDots;
 import ru.fadedfog.tetris.screens.GameScreen;
 
 public class TetrisGame extends ApplicationAdapter {
@@ -22,6 +22,7 @@ public class TetrisGame extends ApplicationAdapter {
 	private Screen screen;
 	private GameField gameField;
 	private Rectangle dotOfPast; 
+	private Dot dotCollisionUp;
 	private GameConfig config;
 	private long lastTime;
 	
@@ -48,9 +49,9 @@ public class TetrisGame extends ApplicationAdapter {
 	
 	private void update() {
 		setPrevCoords();
+		rotateShape();
 		fallShape();
 		gameField.getUsedShape().move();
-		gameField.getUsedShape().rotate();
 		collision();
 		checkingStopShape();
 	}
@@ -72,12 +73,70 @@ public class TetrisGame extends ApplicationAdapter {
 		return (System.currentTimeMillis() - lastTime) / 1000 >= second;
 	}
 	
+	private void rotateShape() {
+//		gameField.getUsedShape().rotate();
+		try {
+			checkOverlaps();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void checkOverlaps() throws CloneNotSupportedException {
+		Shape shape = gameField.getUsedShape();
+		Shape cloneShape = (Shape) shape.clone();
+		cloneShape.setNumberSide(shape.getNumberSide() + 1);
+		
+		PositionsDots positionsDots = new PositionsDots();
+		int[] xPositions = positionsDots.getXPositionsDots(cloneShape.getTypeShape(), 
+				cloneShape.getNumberSide());
+		int[] yPositions = positionsDots.getYPositionsDots(cloneShape.getTypeShape(), 
+				cloneShape.getNumberSide());
+		
+		int idMainDot = cloneShape.getIdMainDot();
+		Dot mainDot = cloneShape.getDots()[idMainDot];
+		Dot[] dotsShape = cloneShape.getDots(); 
+		
+		for (int i = 0; i < dotsShape.length; i++) {
+			dotsShape[i].setX(mainDot.getX() + xPositions[i]);
+			dotsShape[i].setY(mainDot.getY() + yPositions[i]);
+		}
+		
+		for (int i = 0; i < dotsShape.length; i++) {
+			dotsShape[i].setX(0);
+		}
+		
+		List<Dot> dotsWithoutShape = getDotsWithoutShapeDots(cloneShape, gameField.getDots());
+		
+		if (isShapeOverlapsDot(cloneShape, dotsWithoutShape)) {
+			System.out.println(true);
+			shape.setNumberSide(shape.getNumberSide() - 1);
+		} else {
+			shape.rotate();
+		}
+		
+	}
+	
+	private boolean isShapeOverlapsDot(Shape shape, List<Dot> dots) {
+		if (dots.size() != 0) {
+			for (Dot dot: dots) {
+				for (Dot dotShape: shape.getDots()) {
+					if (dotShape.equalsCoords(dot)) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	} 
+	
 	private void collision() {
 		int sizePartShape = config.getSizePartShap();
 		Shape usedShape = gameField.getUsedShape();
 		collisionBoundsField(usedShape, sizePartShape);
-		collisionFaceShapes(usedShape);
+//		collisionFaceShapes(usedShape);
 	}
+	
 	
 	private void collisionBoundsField(Shape usedShape, int sizePartShape) {
 		for (Dot dot: usedShape.getDots()) {
@@ -96,9 +155,11 @@ public class TetrisGame extends ApplicationAdapter {
  		}
 	}
 	
+	
 	private boolean isDotCollisionBottomBoundField(Dot usedDot) {
 		return usedDot.getY() < gameField.getY();
 	}
+	
 	
 	private void setPrevCoords(Dot[] dots) {
 		for (Dot dot: dots) {
@@ -106,9 +167,11 @@ public class TetrisGame extends ApplicationAdapter {
 		}
 	}
 	
+	
 	private boolean isDotCollisionLeftBound(Dot dot) {
 		return dot.getX() < gameField.getX();
 	}
+	
 	
 	private void setPositionDotsByLeftBound(Shape usedShape, int sizePartShape) {
 		for (Dot dot: usedShape.getDots()) {
@@ -116,9 +179,11 @@ public class TetrisGame extends ApplicationAdapter {
 		}
 	}
 	
+	
 	private boolean isDotCollisionRightBound(Dot dot) {
 		return dot.getX() >= gameField.getX() + config.getWidthGameField();
 	}
+	
 	
 	private void setPositionDotsByRightBound(Shape usedShape, int sizePartShape) {
 		for (Dot dot: usedShape.getDots()) {
@@ -128,18 +193,29 @@ public class TetrisGame extends ApplicationAdapter {
 	
 	private void collisionFaceShapes(Shape usedShape) {
 		List<Dot> dotsField = getDotsWithoutShapeDots(usedShape, gameField.getDots());
-		
 		if (isCollisionUpperRow(usedShape, dotsField)) {
 			for (Dot dot: usedShape.getDots()) {
-				dot.setRectangle(dot.getPreviousCoord());
+				dot.setY(dot.getY() + config.getSizePartShap());
 			}
+			
 			gameField.setShapeCollisionShape(true);	
-		} else if (isRightSideShapeCollisionDot(usedShape, dotsField)) {
-			changeXDotsShape(usedShape.getDots(), -24);
-		} else if (isLeftSideShapeCollisionDot(usedShape, dotsField)) {
-			changeXDotsShape(usedShape.getDots(), 24);
+		} 
+		if (isRightSideShapeCollisionDot(usedShape, dotsField)) {
+			changeXDotsShape(usedShape.getDots(), -config.getSizePartShap());
 		}
+		if (isLeftSideShapeCollisionDot(usedShape, dotsField)) {
+			changeXDotsShape(usedShape.getDots(), config.getSizePartShap());
+		}
+		
+//		if (isShapeOverlapsDots(usedShape, dotsField)) {
+//			gameField.setShapeCollisionShape(false);
+//			usedShape.setNumberSide(usedShape.getNumberSide() - 1);
+//			usedShape.rotationManual();
+//			
+//		}
+		
 	}
+	
 	
 	private List<Dot> getDotsWithoutShapeDots(Shape shape, List<Dot> dots) {
 		List<Integer> idDotShape = new ArrayList<>();
@@ -161,15 +237,19 @@ public class TetrisGame extends ApplicationAdapter {
 		return resultDots;
 	}
 	
+	
 	private boolean isCollisionUpperRow(Shape usedShape, List<Dot> dotsField) {
 		boolean isCollision = false;
 		for (Dot dot: dotsField) {
 			if (isUpperShapeCollisionDot(usedShape, dot)) {
+				dotCollisionUp = dot;
 				isCollision = true;
+				break;
 			}
 		}
 		return isCollision;
 	}
+	
 	
 	private boolean isUpperShapeCollisionDot(Shape usedShape, Dot dot) {
 		boolean isUpperCollision = false;
@@ -181,6 +261,7 @@ public class TetrisGame extends ApplicationAdapter {
 		}
 		return isUpperCollision;
 	}
+	
 	
 	private boolean isRightSideShapeCollisionDot(Shape usedShape, List<Dot> dots) {
 		for (Dot dot: dots) {
@@ -194,6 +275,7 @@ public class TetrisGame extends ApplicationAdapter {
 		return false;
 	}
 	
+	
 	private boolean isLeftSideShapeCollisionDot(Shape usedShape, List<Dot> dots) {
 		for (Dot dot: dots) {
 			for (Dot dotShape: usedShape.getDots()) {
@@ -206,27 +288,17 @@ public class TetrisGame extends ApplicationAdapter {
 		return false;
 	}
 	
+	
 	private void changeXDotsShape(Dot[] dots, int to) {
 		for (Dot dot: dots) {
 			dot.setX(dot.getX() + to);
 		}
 	}
 	
-	private boolean isCollisionFaseShape(Shape usedShape, Dot anotherDot) {
-		boolean isCollision = false;
-		for (Dot dotShape: usedShape.getDots()) {
-			if (!anotherDot.equals(dotShape)) {
-				isCollision = anotherDot.getRectangle().overlaps(dotShape.getRectangle());
-				break;
-			}	
-		}
-		
-		return isCollision;
-	}
-	
 	private void checkingStopShape() {
 		if (gameField.isShapeCollisionShape()) {
 			gameField.createNewShape();
+			System.out.println("################################");
 		}
 	}
 	

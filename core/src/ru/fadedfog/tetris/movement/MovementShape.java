@@ -46,7 +46,7 @@ public class MovementShape {
 				dotsShape[i].setY(mainDot.getY() + yPositions[i]);
 			}
 			
-			shape.setNumberSide(shape.getNumberSide() + 1);
+			shape.setNumberSide(shape.getNumberSide() + 1); 
 		}
 	}
 	
@@ -82,5 +82,17 @@ public class MovementShape {
 	public void fall(Rectangle areaShape) {
 		areaShape.y -= areaShape.height;
 	}
+
+	public boolean isAnyKeyNotPressed() {
+		return isAnyKeyNotPressed;
+	}
+
+	@Override
+	public String toString() {
+		return "MovementShape [A_KEY=" + A_KEY + ", D_KEY=" + D_KEY + ", ENTER_KEY=" + ENTER_KEY + ", SPACE=" + SPACE
+				+ ", ANY_KEY=" + ANY_KEY + ", config=" + config + "]";
+	}
+	
+	
 
 }
