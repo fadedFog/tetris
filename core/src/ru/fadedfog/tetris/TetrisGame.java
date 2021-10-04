@@ -74,19 +74,26 @@ public class TetrisGame extends ApplicationAdapter {
 	}
 	
 	private void rotateShape() {
-//		gameField.getUsedShape().rotate();
 		try {
 			checkOverlaps();
 		} catch (CloneNotSupportedException e) {
-			e.printStackTrace();
-		}
+			e.printStackTrace();	}
 	}
 	
 	private void checkOverlaps() throws CloneNotSupportedException {
 		Shape shape = gameField.getUsedShape();
 		Shape cloneShape = (Shape) shape.clone();
-		cloneShape.setNumberSide(shape.getNumberSide() + 1);
+		rotateCloneShape(cloneShape);
+
+		List<Dot> dotsWithoutShape = getDotsWithoutShapeDots(shape, gameField.getDots());
 		
+		if (!isShapeOverlapsDot(cloneShape, dotsWithoutShape)) {
+			shape.rotate();
+		}
+		
+	}
+	
+	private void rotateCloneShape(Shape cloneShape) {
 		PositionsDots positionsDots = new PositionsDots();
 		int[] xPositions = positionsDots.getXPositionsDots(cloneShape.getTypeShape(), 
 				cloneShape.getNumberSide());
@@ -101,32 +108,18 @@ public class TetrisGame extends ApplicationAdapter {
 			dotsShape[i].setX(mainDot.getX() + xPositions[i]);
 			dotsShape[i].setY(mainDot.getY() + yPositions[i]);
 		}
-		
-		for (int i = 0; i < dotsShape.length; i++) {
-			dotsShape[i].setX(0);
-		}
-		
-		List<Dot> dotsWithoutShape = getDotsWithoutShapeDots(cloneShape, gameField.getDots());
-		
-		if (isShapeOverlapsDot(cloneShape, dotsWithoutShape)) {
-			System.out.println(true);
-			shape.setNumberSide(shape.getNumberSide() - 1);
-		} else {
-			shape.rotate();
-		}
-		
 	}
 	
+	
 	private boolean isShapeOverlapsDot(Shape shape, List<Dot> dots) {
-		if (dots.size() != 0) {
-			for (Dot dot: dots) {
-				for (Dot dotShape: shape.getDots()) {
-					if (dotShape.equalsCoords(dot)) {
-						return true;
-					}
+		for (Dot dot: dots) {
+			for (Dot dotShape: shape.getDots()) {
+				if (dotShape.equalsCoords(dot)) {
+					return true;
 				}
 			}
 		}
+		
 		return false;
 	} 
 	
@@ -298,7 +291,6 @@ public class TetrisGame extends ApplicationAdapter {
 	private void checkingStopShape() {
 		if (gameField.isShapeCollisionShape()) {
 			gameField.createNewShape();
-			System.out.println("################################");
 		}
 	}
 	
