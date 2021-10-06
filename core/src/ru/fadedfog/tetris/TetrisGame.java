@@ -7,7 +7,6 @@ import java.util.Map;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 import ru.fadedfog.tetris.config.GameConfig;
@@ -21,8 +20,6 @@ public class TetrisGame extends ApplicationAdapter {
 	private SpriteBatch batch;
 	private Screen screen;
 	private GameField gameField;
-	private Rectangle dotOfPast; 
-	private Dot dotCollisionUp;
 	private GameConfig config;
 	private long lastTime;
 	
@@ -228,7 +225,6 @@ public class TetrisGame extends ApplicationAdapter {
 		boolean isCollision = false;
 		for (Dot dot: dotsField) {
 			if (isUpperShapeCollisionDot(usedShape, dot)) {
-				dotCollisionUp = dot;
 				isCollision = true;
 				break;
 			}

@@ -33,15 +33,6 @@ public class Shape implements Cloneable {
 		changeNumberSide();
 	}
 	
-//	
-//	public void rotateManual() {
-//		movement.rotationManual(this);
-//	}
-//	
-//	public void rotationManual() {
-//		movement.rotationManual(this);
-//	}
-	
 	public void changeNumberSide() {
 		int countNumberSide = typeShape.getCountNumberSides();
 		if (numberSide > countNumberSide) {
