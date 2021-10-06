@@ -88,7 +88,11 @@ public class Dot {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(movement, rectangle);
+		return Objects.hash(config, movement, onRow, previousCoord, rectangle);
+	}
+	
+	public boolean equalsCoords(Dot dot) {
+		return this.getRectangle().equals(dot.getRectangle());
 	}
 
 	@Override
@@ -100,7 +104,8 @@ public class Dot {
 		if (getClass() != obj.getClass())
 			return false;
 		Dot other = (Dot) obj;
-		return Objects.equals(movement, other.movement) && Objects.equals(rectangle, other.rectangle);
+		return Objects.equals(config, other.config) && Objects.equals(movement, other.movement) && onRow == other.onRow
+				&& Objects.equals(previousCoord, other.previousCoord) && Objects.equals(rectangle, other.rectangle);
 	}
 
 	@Override
