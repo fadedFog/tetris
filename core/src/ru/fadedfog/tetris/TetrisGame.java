@@ -127,7 +127,7 @@ public class TetrisGame extends ApplicationAdapter {
 		int sizePartShape = config.getSizePartShap();
 		Shape usedShape = gameField.getUsedShape();
 		collisionBoundsField(usedShape, sizePartShape);
-//		collisionFaceShapes(usedShape);
+		collisionFaceShapes(usedShape);
 	}
 	
 	
@@ -199,13 +199,6 @@ public class TetrisGame extends ApplicationAdapter {
 		if (isLeftSideShapeCollisionDot(usedShape, dotsField)) {
 			changeXDotsShape(usedShape.getDots(), config.getSizePartShap());
 		}
-		
-//		if (isShapeOverlapsDots(usedShape, dotsField)) {
-//			gameField.setShapeCollisionShape(false);
-//			usedShape.setNumberSide(usedShape.getNumberSide() - 1);
-//			usedShape.rotationManual();
-//			
-//		}
 		
 	}
 	
