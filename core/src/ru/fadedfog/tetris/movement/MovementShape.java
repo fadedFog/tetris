@@ -65,10 +65,10 @@ public class MovementShape {
 	private void  moveShapeLeftRight(Rectangle areaShape) {
 		if (isAnyKeyNotPressed) {
 			if (Gdx.input.isKeyPressed(A_KEY)) {
-				areaShape.x -= config.getSizePartShap();
+				areaShape.x -= config.getSizePartShape();
 			}
 			if (Gdx.input.isKeyPressed(D_KEY)) {
-				areaShape.x += config.getSizePartShap();
+				areaShape.x += config.getSizePartShape();
 			}
 		}
 	}

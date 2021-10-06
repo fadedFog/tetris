@@ -107,7 +107,6 @@ public class TetrisGame extends ApplicationAdapter {
 		}
 	}
 	
-	
 	private boolean isShapeOverlapsDot(Shape shape, List<Dot> dots) {
 		for (Dot dot: dots) {
 			for (Dot dotShape: shape.getDots()) {
@@ -121,18 +120,20 @@ public class TetrisGame extends ApplicationAdapter {
 	} 
 	
 	private void collision() {
-		int sizePartShape = config.getSizePartShap();
+		int sizePartShape = config.getSizePartShape();
 		Shape usedShape = gameField.getUsedShape();
 		collisionBoundsField(usedShape, sizePartShape);
 		collisionFaceShapes(usedShape);
 	}
 	
-	
 	private void collisionBoundsField(Shape usedShape, int sizePartShape) {
+		
 		for (Dot dot: usedShape.getDots()) {
 			if (isDotCollisionBottomBoundField(dot)) {
 				setPrevCoords(usedShape.getDots());
-				gameField.setShapeCollisionShape(true);
+				if (dot.getY() <= gameField.getY()) {
+					gameField.setShapeCollisionShape(true);	
+				}
 			}
 			
 			if (isDotCollisionLeftBound(dot)) {
@@ -143,25 +144,23 @@ public class TetrisGame extends ApplicationAdapter {
 				setPositionDotsByRightBound(usedShape, sizePartShape);
 			}
  		}
+		
 	}
-	
 	
 	private boolean isDotCollisionBottomBoundField(Dot usedDot) {
 		return usedDot.getY() < gameField.getY();
 	}
 	
-	
 	private void setPrevCoords(Dot[] dots) {
 		for (Dot dot: dots) {
+			dot.setX((int) dot.getPreviousCoord().getX());
 			dot.setY((int) dot.getPreviousCoord().getY());
 		}
 	}
 	
-	
 	private boolean isDotCollisionLeftBound(Dot dot) {
 		return dot.getX() < gameField.getX();
 	}
-	
 	
 	private void setPositionDotsByLeftBound(Shape usedShape, int sizePartShape) {
 		for (Dot dot: usedShape.getDots()) {
@@ -169,11 +168,9 @@ public class TetrisGame extends ApplicationAdapter {
 		}
 	}
 	
-	
 	private boolean isDotCollisionRightBound(Dot dot) {
 		return dot.getX() >= gameField.getX() + config.getWidthGameField();
 	}
-	
 	
 	private void setPositionDotsByRightBound(Shape usedShape, int sizePartShape) {
 		for (Dot dot: usedShape.getDots()) {
@@ -185,20 +182,19 @@ public class TetrisGame extends ApplicationAdapter {
 		List<Dot> dotsField = getDotsWithoutShapeDots(usedShape, gameField.getDots());
 		if (isCollisionUpperRow(usedShape, dotsField)) {
 			for (Dot dot: usedShape.getDots()) {
-				dot.setY(dot.getY() + config.getSizePartShap());
+				dot.setY(dot.getY() + config.getSizePartShape());
 			}
 			
 			gameField.setShapeCollisionShape(true);	
 		} 
 		if (isRightSideShapeCollisionDot(usedShape, dotsField)) {
-			changeXDotsShape(usedShape.getDots(), -config.getSizePartShap());
+			changeXDotsShape(usedShape.getDots(), -config.getSizePartShape());
 		}
 		if (isLeftSideShapeCollisionDot(usedShape, dotsField)) {
-			changeXDotsShape(usedShape.getDots(), config.getSizePartShap());
+			changeXDotsShape(usedShape.getDots(), config.getSizePartShape());
 		}
 		
 	}
-	
 	
 	private List<Dot> getDotsWithoutShapeDots(Shape shape, List<Dot> dots) {
 		List<Integer> idDotShape = new ArrayList<>();
@@ -220,7 +216,6 @@ public class TetrisGame extends ApplicationAdapter {
 		return resultDots;
 	}
 	
-	
 	private boolean isCollisionUpperRow(Shape usedShape, List<Dot> dotsField) {
 		boolean isCollision = false;
 		for (Dot dot: dotsField) {
@@ -232,7 +227,6 @@ public class TetrisGame extends ApplicationAdapter {
 		return isCollision;
 	}
 	
-	
 	private boolean isUpperShapeCollisionDot(Shape usedShape, Dot dot) {
 		boolean isUpperCollision = false;
 		for (Dot dotShape: usedShape.getDots()) {
@@ -243,7 +237,6 @@ public class TetrisGame extends ApplicationAdapter {
 		}
 		return isUpperCollision;
 	}
-	
 	
 	private boolean isRightSideShapeCollisionDot(Shape usedShape, List<Dot> dots) {
 		for (Dot dot: dots) {
@@ -257,7 +250,6 @@ public class TetrisGame extends ApplicationAdapter {
 		return false;
 	}
 	
-	
 	private boolean isLeftSideShapeCollisionDot(Shape usedShape, List<Dot> dots) {
 		for (Dot dot: dots) {
 			for (Dot dotShape: usedShape.getDots()) {
@@ -269,7 +261,6 @@ public class TetrisGame extends ApplicationAdapter {
 		}
 		return false;
 	}
-	
 	
 	private void changeXDotsShape(Dot[] dots, int to) {
 		for (Dot dot: dots) {

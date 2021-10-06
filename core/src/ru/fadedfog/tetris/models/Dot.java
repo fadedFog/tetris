@@ -21,8 +21,8 @@ public class Dot {
 		rectangle.y = config.getStartYDot();
 		onRow = config.getRowsNumber();
 		rectangle.x = config.getWidthWindow() / 2;
-		rectangle.width = config.getSizePartShap();
-		rectangle.height = config.getSizePartShap();
+		rectangle.width = config.getSizePartShape();
+		rectangle.height = config.getSizePartShape();
 		previousCoord = new Rectangle();
 		setPreCoord();
 	}
@@ -38,7 +38,7 @@ public class Dot {
 	
 	public void updateOnRow() {
 		int difference = (int) (config.getStartYDot() - getY());
-		int numberOfSteps = difference / config.getSizePartShap();
+		int numberOfSteps = difference / config.getSizePartShape();
 		onRow = config.getRowsNumber() - numberOfSteps;
 	}
 	

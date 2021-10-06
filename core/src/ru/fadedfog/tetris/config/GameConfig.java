@@ -93,7 +93,7 @@ public class GameConfig {
 		config.setResizableWindow(resizableWindow);
 	}
 
-	public int getSizePartShap() {
+	public int getSizePartShape() {
 		return config.getSizePartShap();
 	}
 
