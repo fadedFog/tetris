@@ -7,12 +7,12 @@ public enum TypeShape {
 		@Override
 		public int[][] getDotsPositionsOfShape(Dot mainDot) {
 			int[][] positionsDots = initArray();
-			positionsDots[0][0] = mainDot.getX() - config.getSizePartShap();
+			positionsDots[0][0] = mainDot.getX() - config.getSizePartShape();
 			positionsDots[0][1] = mainDot.getY();
 			positionsDots[1][0] = mainDot.getX();
-			positionsDots[1][1] = mainDot.getY() + config.getSizePartShap();
+			positionsDots[1][1] = mainDot.getY() + config.getSizePartShape();
 			positionsDots[2][0] = mainDot.getX();
-			positionsDots[2][1] = mainDot.getY() + config.getSizePartShap() * 2;
+			positionsDots[2][1] = mainDot.getY() + config.getSizePartShape() * 2;
 			return positionsDots;
 		}
 	},
@@ -21,11 +21,11 @@ public enum TypeShape {
 		public int[][] getDotsPositionsOfShape(Dot mainDot) {
 			int[][] positionsDots = initArray();
 			positionsDots[0][0] = mainDot.getX();
-			positionsDots[0][1] = mainDot.getY() + config.getSizePartShap();
+			positionsDots[0][1] = mainDot.getY() + config.getSizePartShape();
 			positionsDots[1][0] = mainDot.getX();
-			positionsDots[1][1] = mainDot.getY() + config.getSizePartShap() * 2;
+			positionsDots[1][1] = mainDot.getY() + config.getSizePartShape() * 2;
 			positionsDots[2][0] = mainDot.getX();
-			positionsDots[2][1] = mainDot.getY() + config.getSizePartShap() * 3;
+			positionsDots[2][1] = mainDot.getY() + config.getSizePartShape() * 3;
 			return positionsDots;
 		}
 	},
@@ -33,12 +33,12 @@ public enum TypeShape {
 		@Override
 		public int[][] getDotsPositionsOfShape(Dot mainDot) {
 			int[][] positionsDots = initArray();
-			positionsDots[0][0] = mainDot.getX() - config.getSizePartShap();
+			positionsDots[0][0] = mainDot.getX() - config.getSizePartShape();
 			positionsDots[0][1] = mainDot.getY();
-			positionsDots[1][0] = mainDot.getX() - config.getSizePartShap();
-			positionsDots[1][1] = mainDot.getY() + config.getSizePartShap();
+			positionsDots[1][0] = mainDot.getX() - config.getSizePartShape();
+			positionsDots[1][1] = mainDot.getY() + config.getSizePartShape();
 			positionsDots[2][0] = mainDot.getX();
-			positionsDots[2][1] = mainDot.getY() + config.getSizePartShap();
+			positionsDots[2][1] = mainDot.getY() + config.getSizePartShape();
 			return positionsDots;
 		}
 	},
@@ -46,12 +46,12 @@ public enum TypeShape {
 		@Override
 		public int[][] getDotsPositionsOfShape(Dot mainDot) {
 			int[][] positionsDots = initArray();
-			positionsDots[0][0] = mainDot.getX() + config.getSizePartShap();
+			positionsDots[0][0] = mainDot.getX() + config.getSizePartShape();
 			positionsDots[0][1] = mainDot.getY();
 			positionsDots[1][0] = mainDot.getX();
-			positionsDots[1][1] = mainDot.getY() + config.getSizePartShap();
+			positionsDots[1][1] = mainDot.getY() + config.getSizePartShape();
 			positionsDots[2][0] = mainDot.getX();
-			positionsDots[2][1] = mainDot.getY() + config.getSizePartShap() * 2;
+			positionsDots[2][1] = mainDot.getY() + config.getSizePartShape() * 2;
 			return positionsDots;
 		}
 	},
@@ -59,12 +59,12 @@ public enum TypeShape {
 		@Override
 		public int[][] getDotsPositionsOfShape(Dot mainDot) {
 			int[][] positionsDots = initArray();
-			positionsDots[0][0] = mainDot.getX() + config.getSizePartShap();
+			positionsDots[0][0] = mainDot.getX() + config.getSizePartShape();
 			positionsDots[0][1] = mainDot.getY();
 			positionsDots[1][0] = mainDot.getX();
-			positionsDots[1][1] = mainDot.getY() + config.getSizePartShap();
-			positionsDots[2][0] = mainDot.getX() - config.getSizePartShap();
-			positionsDots[2][1] = mainDot.getY() + config.getSizePartShap();
+			positionsDots[1][1] = mainDot.getY() + config.getSizePartShape();
+			positionsDots[2][0] = mainDot.getX() - config.getSizePartShape();
+			positionsDots[2][1] = mainDot.getY() + config.getSizePartShape();
 			return positionsDots;
 		}
 	},
@@ -73,11 +73,11 @@ public enum TypeShape {
 		public int[][] getDotsPositionsOfShape(Dot mainDot) {
 			int[][] positionsDots = initArray();
 			positionsDots[0][0] = mainDot.getX();
-			positionsDots[0][1] = mainDot.getY() + config.getSizePartShap();
-			positionsDots[1][0] = mainDot.getX() - config.getSizePartShap();
-			positionsDots[1][1] = mainDot.getY() + config.getSizePartShap();
-			positionsDots[2][0] = mainDot.getX() + config.getSizePartShap();
-			positionsDots[2][1] = mainDot.getY() + config.getSizePartShap();
+			positionsDots[0][1] = mainDot.getY() + config.getSizePartShape();
+			positionsDots[1][0] = mainDot.getX() - config.getSizePartShape();
+			positionsDots[1][1] = mainDot.getY() + config.getSizePartShape();
+			positionsDots[2][0] = mainDot.getX() + config.getSizePartShape();
+			positionsDots[2][1] = mainDot.getY() + config.getSizePartShape();
 			return positionsDots;
 		}
 	},
@@ -85,12 +85,12 @@ public enum TypeShape {
 		@Override
 		public int[][] getDotsPositionsOfShape(Dot mainDot) {
 			int[][] positionsDots = initArray();
-			positionsDots[0][0] = mainDot.getX() - config.getSizePartShap();
+			positionsDots[0][0] = mainDot.getX() - config.getSizePartShape();
 			positionsDots[0][1] = mainDot.getY();
 			positionsDots[1][0] = mainDot.getX();
-			positionsDots[1][1] = mainDot.getY() + config.getSizePartShap();
-			positionsDots[2][0] = mainDot.getX() + config.getSizePartShap();
-			positionsDots[2][1] = mainDot.getY() + config.getSizePartShap();
+			positionsDots[1][1] = mainDot.getY() + config.getSizePartShape();
+			positionsDots[2][0] = mainDot.getX() + config.getSizePartShape();
+			positionsDots[2][1] = mainDot.getY() + config.getSizePartShape();
 			return positionsDots;
 		}
 	};

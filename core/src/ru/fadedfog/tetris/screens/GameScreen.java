@@ -57,7 +57,7 @@ public class GameScreen implements Screen {
 	private void drawGridField() {
 		shapeRenderer.begin(ShapeType.Line);
 		Color colorGrid = new Color(0.3f, 0.28f, 0.1f, 0);
-		int sizePartSharp = config.getSizePartShap(); 
+		int sizePartSharp = config.getSizePartShape(); 
 		int columnsNumber = config.getColumnsNumber();
 		int rowsNumber = config.getRowsNumber();
 		

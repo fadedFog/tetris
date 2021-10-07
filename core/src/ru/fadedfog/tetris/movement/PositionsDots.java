@@ -9,7 +9,7 @@ public class PositionsDots {
 	
 	public PositionsDots() {
 		config = GameConfig.getInstance();
-		sizeDot = config.getSizePartShap();
+		sizeDot = config.getSizePartShape();
 	}
 	
 	public int[] getYPositionsDots(TypeShape typeShape, int numberSide) {
