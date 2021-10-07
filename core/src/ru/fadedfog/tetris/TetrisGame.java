@@ -50,6 +50,8 @@ public class TetrisGame extends ApplicationAdapter {
 		fallShape();
 		gameField.getUsedShape().move();
 		collision();
+		updateNumberRowOfDots();
+		
 		checkingStopShape();
 	}
 	
@@ -268,8 +270,15 @@ public class TetrisGame extends ApplicationAdapter {
 		}
 	}
 	
+	private void updateNumberRowOfDots() {
+		for (Dot dot: gameField.getDots()) {
+			dot.updateOnRow();
+		}
+	}
+	
 	private void checkingStopShape() {
 		if (gameField.isShapeCollisionShape()) {
+			removeRowOfDots(); 	// TODO need to work it out
 			gameField.createNewShape();
 		}
 	}
