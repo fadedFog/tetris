@@ -50,6 +50,7 @@ public class TetrisGame extends ApplicationAdapter {
 		fallShape();
 		gameField.getUsedShape().move();
 		collision();
+		updateNumberRowOfDots();
 		checkingStopShape();
 	}
 	
@@ -147,9 +148,11 @@ public class TetrisGame extends ApplicationAdapter {
 		
 	}
 	
+	
 	private boolean isDotCollisionBottomBoundField(Dot usedDot) {
 		return usedDot.getY() < gameField.getY();
 	}
+	
 	
 	private void setPrevCoords(Dot[] dots) {
 		for (Dot dot: dots) {
@@ -158,9 +161,11 @@ public class TetrisGame extends ApplicationAdapter {
 		}
 	}
 	
+	
 	private boolean isDotCollisionLeftBound(Dot dot) {
 		return dot.getX() < gameField.getX();
 	}
+	
 	
 	private void setPositionDotsByLeftBound(Shape usedShape, int sizePartShape) {
 		for (Dot dot: usedShape.getDots()) {
@@ -168,15 +173,18 @@ public class TetrisGame extends ApplicationAdapter {
 		}
 	}
 	
+	
 	private boolean isDotCollisionRightBound(Dot dot) {
 		return dot.getX() >= gameField.getX() + config.getWidthGameField();
 	}
+	
 	
 	private void setPositionDotsByRightBound(Shape usedShape, int sizePartShape) {
 		for (Dot dot: usedShape.getDots()) {
 			dot.setX(dot.getX() - sizePartShape);
 		}
 	}
+	
 	
 	private void collisionFaceShapes(Shape usedShape) {
 		List<Dot> dotsField = getDotsWithoutShapeDots(usedShape, gameField.getDots());
@@ -195,6 +203,7 @@ public class TetrisGame extends ApplicationAdapter {
 		}
 		
 	}
+	
 	
 	private List<Dot> getDotsWithoutShapeDots(Shape shape, List<Dot> dots) {
 		List<Integer> idDotShape = new ArrayList<>();
@@ -216,6 +225,7 @@ public class TetrisGame extends ApplicationAdapter {
 		return resultDots;
 	}
 	
+	
 	private boolean isCollisionUpperRow(Shape usedShape, List<Dot> dotsField) {
 		boolean isCollision = false;
 		for (Dot dot: dotsField) {
@@ -227,6 +237,7 @@ public class TetrisGame extends ApplicationAdapter {
 		return isCollision;
 	}
 	
+	
 	private boolean isUpperShapeCollisionDot(Shape usedShape, Dot dot) {
 		boolean isUpperCollision = false;
 		for (Dot dotShape: usedShape.getDots()) {
@@ -237,6 +248,7 @@ public class TetrisGame extends ApplicationAdapter {
 		}
 		return isUpperCollision;
 	}
+	
 	
 	private boolean isRightSideShapeCollisionDot(Shape usedShape, List<Dot> dots) {
 		for (Dot dot: dots) {
@@ -250,6 +262,7 @@ public class TetrisGame extends ApplicationAdapter {
 		return false;
 	}
 	
+	
 	private boolean isLeftSideShapeCollisionDot(Shape usedShape, List<Dot> dots) {
 		for (Dot dot: dots) {
 			for (Dot dotShape: usedShape.getDots()) {
@@ -262,23 +275,34 @@ public class TetrisGame extends ApplicationAdapter {
 		return false;
 	}
 	
+	
 	private void changeXDotsShape(Dot[] dots, int to) {
 		for (Dot dot: dots) {
 			dot.setX(dot.getX() + to);
 		}
 	}
 	
+	private void updateNumberRowOfDots() {
+		for (Dot dot: gameField.getDots()) {
+			dot.updateOnRow();
+		}
+	}
+	
+	
 	private void checkingStopShape() {
 		if (gameField.isShapeCollisionShape()) {
+			removeRowOfDots();
 			gameField.createNewShape();
 		}
 	}
 	
-	private void removeRowOfDots() {
+	private void removeRowOfDots() { // TODO need to work it out
 		Map<Integer, List<Dot>> rowsOfDots = gameField.getRowsOfDots();
 		for (Map.Entry<Integer, List<Dot>> row: rowsOfDots.entrySet()) {
-			if (row.getValue().size() == config.getColumnsNumber()) {
+			List<Dot> rowOfDots = row.getValue();
+			if (rowOfDots.size() == config.getColumnsNumber()) {
 				removeDots(row.getValue());
+				fallAllHighDots(row.getKey());
 			}
 		}
 	}
@@ -287,13 +311,16 @@ public class TetrisGame extends ApplicationAdapter {
 		for (Dot dot: removeDots) {
 			gameField.getDots().remove(dot);
 		}
-		fallAllDots();
+		
 	}
 	
-	private void fallAllDots() {
+	private void fallAllHighDots(int numberRow) {
 		for (Dot dot: gameField.getDots()) {
-			dot.fall();
-			dot.updateOnRow();
+			if (dot.getOnRow() > numberRow - 1) {		
+				dot.fall();
+				dot.updateOnRow();
+			}
+			
 		}
 	}
 	
