@@ -17,10 +17,14 @@ public class MovementShape {
 	private GameConfig config;
 	private PositionsDots positionsDots;
 	private boolean isAnyKeyNotPressed;
+	private long lastTime;
+	private final long TIME_FALL = 20;
 	
 	public MovementShape() {
 		config = GameConfig.getInstance();
 		positionsDots = new PositionsDots();
+		
+		lastTime = System.currentTimeMillis();
 	}
 	
 	public void rotate(Shape shape) {
@@ -75,7 +79,10 @@ public class MovementShape {
 	
 	private void moveDown(Rectangle areaShape) {
 		if (Gdx.input.isKeyPressed(SPACE)) {
-			fall(areaShape);
+			if (System.currentTimeMillis() - lastTime >= TIME_FALL) {
+				lastTime = System.currentTimeMillis();
+				fall(areaShape);
+			}
 		}
 	}
 	
