@@ -47,11 +47,6 @@ public class TetrisGame extends ApplicationAdapter {
 	private void update() {
 		setPrevCoords();
 		rotateShape();
-//		List<Dot> dotsWithoutShape = getDotsWithoutShapeDots(gameField.getUsedShape(), gameField.getDots());
-//		for (Dot dot: dotsWithoutShape) {
-//			dot.fall();
-//		}
-		
 		fallShape();
 		gameField.getUsedShape().move();
 		collision();
