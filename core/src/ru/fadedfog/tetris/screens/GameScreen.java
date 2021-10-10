@@ -19,7 +19,13 @@ public class GameScreen implements Screen {
 	private TetrisGame game;
 	private SpriteBatch batch;
 	private Texture spriteBorderField;
-	private Texture spriteDot;
+	private Texture spriteDotRed;
+	private Texture spriteDotGreen;
+	private Texture spriteDotBlue;
+	private Texture spriteDotOrange;
+	private Texture spriteDotCaye;
+	private Texture spriteDotPink;
+	private Texture spriteDotYellow;
 	private ShapeRenderer shapeRenderer;
 	
 	public GameScreen(TetrisGame game) {
@@ -32,7 +38,13 @@ public class GameScreen implements Screen {
 	
 	private void createSprites() {
 		spriteBorderField = new Texture(Gdx.files.internal("border_field.png"));
-		spriteDot = new Texture(Gdx.files.internal("dot_green.png"));
+		spriteDotRed = new Texture(Gdx.files.internal("dot_red.png"));
+		spriteDotGreen = new Texture(Gdx.files.internal("dot_green.png"));
+		spriteDotBlue = new Texture(Gdx.files.internal("dot_blue.png"));
+		spriteDotOrange = new Texture(Gdx.files.internal("dot_orange.png"));
+		spriteDotCaye = new Texture(Gdx.files.internal("dot_caye.png"));
+		spriteDotPink = new Texture(Gdx.files.internal("dot_pink.png"));
+		spriteDotYellow = new Texture(Gdx.files.internal("dot_yellow.png"));
 	}
 	
 	@Override
@@ -76,10 +88,46 @@ public class GameScreen implements Screen {
 		batch.begin();
 		List<Dot> dots = game.getGameField().getDots();
 		for (Dot dot: dots) {
+			Texture spriteDot = chooseSpriteDotByTypeShape(dot);
 			batch.draw(spriteDot, dot.getX(), dot.getY());
 		}
 		
 		batch.end();
+	}
+	
+	private Texture chooseSpriteDotByTypeShape(Dot dot) {
+		Texture sprite;
+		switch (dot.getDotInTypeShape()) {
+			case I:
+				sprite = spriteDotCaye;
+				break;
+			
+			case J:
+				sprite = spriteDotPink;
+				break;
+
+			case L:
+				sprite = spriteDotBlue;
+				break;
+
+			case T:
+				sprite = spriteDotRed;
+				break;
+
+			case S:
+				sprite = spriteDotYellow;
+				break;
+
+			case Z:
+				sprite = spriteDotOrange;
+				break;
+			
+			default:
+				sprite = spriteDotGreen;
+				break;
+		}
+		
+		return sprite;
 	}
 	
 	@Override
