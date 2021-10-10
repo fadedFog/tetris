@@ -300,11 +300,29 @@ public class TetrisGame extends ApplicationAdapter {
 		Map<Integer, List<Dot>> rowsOfDots = gameField.getRowsOfDots();
 		for (Map.Entry<Integer, List<Dot>> row: rowsOfDots.entrySet()) {
 			List<Dot> rowOfDots = row.getValue();
-			if (rowOfDots.size() == config.getColumnsNumber()) {
+			if (isRowFullDots(rowOfDots)) {
 				removeDots(row.getValue());
 				fallAllHighDots(row.getKey());
 			}
 		}
+	}
+	
+	private boolean isRowFullDots(List<Dot> dots) {
+		int counterDot = 0;
+		boolean result = true;
+		for (Dot dot: dots) {
+			if (dot != null) {
+				counterDot += 1;
+			} else {
+				result = false;
+			}
+		}
+		
+		if (!(counterDot >= config.getColumnsNumber())) {
+			result = false;
+		}
+		
+		return result;
 	}
 	
 	private void removeDots(List<Dot> removeDots) {
