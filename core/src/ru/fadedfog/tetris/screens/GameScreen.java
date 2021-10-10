@@ -26,6 +26,8 @@ public class GameScreen implements Screen {
 	private Texture spriteDotCaye;
 	private Texture spriteDotPink;
 	private Texture spriteDotYellow;
+	private Texture spriteScore;
+	private Texture[] spritesNumbers;
 	private ShapeRenderer shapeRenderer;
 	
 	public GameScreen(TetrisGame game) {
@@ -37,6 +39,12 @@ public class GameScreen implements Screen {
 	}
 	
 	private void createSprites() {
+		initSpritesField();
+		spriteScore = new Texture(Gdx.files.internal("score.png"));
+		initSpritesNumbers();
+	}
+	
+	private void initSpritesField() {
 		spriteBorderField = new Texture(Gdx.files.internal("border_field.png"));
 		spriteDotRed = new Texture(Gdx.files.internal("dot_red.png"));
 		spriteDotGreen = new Texture(Gdx.files.internal("dot_green.png"));
@@ -45,6 +53,14 @@ public class GameScreen implements Screen {
 		spriteDotCaye = new Texture(Gdx.files.internal("dot_caye.png"));
 		spriteDotPink = new Texture(Gdx.files.internal("dot_pink.png"));
 		spriteDotYellow = new Texture(Gdx.files.internal("dot_yellow.png"));
+	}
+	
+	private void initSpritesNumbers() {
+		spritesNumbers = new Texture[10];
+		for (int i = 0; i < spritesNumbers.length; i++) {
+			String nameSpreite = "n" + i + ".png";
+			spritesNumbers[i] = new Texture(Gdx.files.internal(nameSpreite));
+		}
 	}
 	
 	@Override

@@ -323,10 +323,6 @@ public class TetrisGame extends ApplicationAdapter {
 			result = false;
 		}
 		
-		if (result) {
-			System.out.println("REMOVE");
-		}
-		
 		return result;
 	}
 	
