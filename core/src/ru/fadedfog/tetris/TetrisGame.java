@@ -296,7 +296,7 @@ public class TetrisGame extends ApplicationAdapter {
 		}
 	}
 	
-	private void removeRowOfDots() { // TODO need to work it out
+	private void removeRowOfDots() {
 		Map<Integer, List<Dot>> rowsOfDots = gameField.getRowsOfDots();
 		for (Map.Entry<Integer, List<Dot>> row: rowsOfDots.entrySet()) {
 			List<Dot> rowOfDots = row.getValue();
@@ -305,6 +305,7 @@ public class TetrisGame extends ApplicationAdapter {
 				fallAllHighDots(row.getKey());
 			}
 		}
+		
 	}
 	
 	private boolean isRowFullDots(List<Dot> dots) {
@@ -322,6 +323,10 @@ public class TetrisGame extends ApplicationAdapter {
 			result = false;
 		}
 		
+		if (result) {
+			System.out.println("REMOVE");
+		}
+		
 		return result;
 	}
 	
@@ -334,7 +339,7 @@ public class TetrisGame extends ApplicationAdapter {
 	
 	private void fallAllHighDots(int numberRow) {
 		for (Dot dot: gameField.getDots()) {
-			if (dot.getOnRow() > numberRow - 1) {		
+			if (dot.getOnRow() >= numberRow) {		
 				dot.fall();
 				dot.updateOnRow();
 			}
