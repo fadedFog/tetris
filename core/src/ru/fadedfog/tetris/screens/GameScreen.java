@@ -28,6 +28,8 @@ public class GameScreen implements Screen {
 	private Texture spriteDotYellow;
 	private Texture spriteScore;
 	private Texture[] spritesNumbers;
+	private int[] score;
+	private final int SIZE_SCORE_ARRAY = 9;
 	private ShapeRenderer shapeRenderer;
 	
 	public GameScreen(TetrisGame game) {
@@ -36,6 +38,7 @@ public class GameScreen implements Screen {
 		batch = game.getBatch();
 		shapeRenderer = new ShapeRenderer();
 		createSprites();
+		score = new int[SIZE_SCORE_ARRAY];
 	}
 	
 	private void createSprites() {
@@ -73,6 +76,7 @@ public class GameScreen implements Screen {
 		drawBoundField();
 		drawGridField();
 		drawDots();
+		drawScore();
 	}
 	
 	private void drawBoundField() {
@@ -144,6 +148,35 @@ public class GameScreen implements Screen {
 		}
 		
 		return sprite;
+	}
+	
+	private void drawScore() {
+		int xScore = game.getGameField().getX() - 36;
+		int yScore = game.getGameField().getY() - 24;
+		int widthScore = spriteScore.getWidth() / 2;
+		int heightScore = spriteScore.getHeight() / 2;
+		int xNumber = xScore + widthScore;
+		int widthNumber = spritesNumbers[0].getWidth() / 2;
+		int heightumber = spritesNumbers[0].getHeight() / 2;
+		
+		batch.begin();
+		batch.draw(spriteScore, xScore,  yScore,
+				widthScore, heightScore);
+		
+		updateScoreGame();
+		for (int i = 0; i < score.length; i++) {
+			Texture spriteNumber = spritesNumbers[score[i]];
+			batch.draw(spriteNumber, xNumber + 12 * (i + 1), yScore, 
+					widthNumber, heightumber);
+		}
+		
+		batch.end();
+	}
+	
+	private void updateScoreGame() {
+		for (int i = 0; i < score.length; i++) {
+			score[i] = i;
+		}
 	}
 	
 	@Override

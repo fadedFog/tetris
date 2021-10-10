@@ -22,9 +22,11 @@ public class TetrisGame extends ApplicationAdapter {
 	private GameField gameField;
 	private GameConfig config;
 	private long lastTime;
+	private int scoreGame;
 	
 	@Override
 	public void create () {
+		scoreGame = 0;
 		batch = new SpriteBatch();
 		screen = new GameScreen(this);
 		config = GameConfig.getInstance();
@@ -371,6 +373,14 @@ public class TetrisGame extends ApplicationAdapter {
 
 	public void setGameField(GameField gameField) {
 		this.gameField = gameField;
+	}
+
+	public int getScoreGame() {
+		return scoreGame;
+	}
+
+	public void setScoreGame(int scoreGame) {
+		this.scoreGame = scoreGame;
 	}
 
 }
