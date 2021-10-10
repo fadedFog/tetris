@@ -13,6 +13,7 @@ public class Dot {
 	private MovementShape movement;
 	private GameConfig config;
 	private int onRow;
+	private TypeShape dotInTypeShape;
 	
 	public Dot() {
 		config = GameConfig.getInstance();
@@ -86,13 +87,13 @@ public class Dot {
 		this.onRow = onRow;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(config, movement, onRow, previousCoord, rectangle);
-	}
-	
 	public boolean equalsCoords(Dot dot) {
 		return this.getRectangle().equals(dot.getRectangle());
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(config, dotInTypeShape, movement, onRow, previousCoord, rectangle);
 	}
 
 	@Override
@@ -104,7 +105,8 @@ public class Dot {
 		if (getClass() != obj.getClass())
 			return false;
 		Dot other = (Dot) obj;
-		return Objects.equals(config, other.config) && Objects.equals(movement, other.movement) && onRow == other.onRow
+		return Objects.equals(config, other.config) && dotInTypeShape == other.dotInTypeShape
+				&& Objects.equals(movement, other.movement) && onRow == other.onRow
 				&& Objects.equals(previousCoord, other.previousCoord) && Objects.equals(rectangle, other.rectangle);
 	}
 
@@ -112,6 +114,14 @@ public class Dot {
 	public String toString() {
 		return "Dot [rectangle=" + rectangle + ", onRow=" + onRow
 				+ "]";
+	}
+
+	public TypeShape getDotInTypeShape() {
+		return dotInTypeShape;
+	}
+
+	public void setDotInTypeShape(TypeShape dotInTypeShape) {
+		this.dotInTypeShape = dotInTypeShape;
 	}
 	
 }

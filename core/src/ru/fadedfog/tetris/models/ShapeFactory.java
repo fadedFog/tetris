@@ -33,10 +33,12 @@ public class ShapeFactory {
 
 		Dot[] resultDots = new Dot[dotsOfShape.length];
 		resultDots[0] = dotsOfShape[dotsOfShape.length - 1];
+		resultDots[0].setDotInTypeShape(type);
 		for (int i = 1; i < resultDots.length; i++) {
 			resultDots[i] = dotsOfShape[i - 1];
+			resultDots[i].setDotInTypeShape(type);
 		}
-		
+
 		return  resultDots;
 	}
 
