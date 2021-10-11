@@ -174,9 +174,28 @@ public class GameScreen implements Screen {
 	}
 	
 	private void updateScoreGame() {
-		for (int i = 0; i < score.length; i++) {
-			score[i] = i;
+		String scoreChars = String.valueOf(game.getScoreGame());
+		if (scoreChars.length() > 9) {
+			game.setScoreGame(0);
+			scoreChars = String.valueOf(game.getScoreGame());
 		}
+		
+		int[] numbersScore = convertScoreCharsToArrayScore(scoreChars);
+		
+		for (int i = score.length - numbersScore.length, j = 0; i < score.length; i++, j++) {
+			score[i] = numbersScore[j];
+		}
+	}
+	
+	private int[] convertScoreCharsToArrayScore(String scoreChars) {
+		int[] result = new int[scoreChars.length()];
+		String[] chars = scoreChars.split("");
+		
+		for (int i = 0; i < chars.length; i++) {
+			result[i] = Integer.parseInt(chars[i]);
+		}
+		
+		return result;
 	}
 	
 	@Override
