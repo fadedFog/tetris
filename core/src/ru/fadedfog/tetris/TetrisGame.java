@@ -23,10 +23,12 @@ public class TetrisGame extends ApplicationAdapter {
 	private GameConfig config;
 	private long lastTime;
 	private int scoreGame;
+	private int combo;
 	
 	@Override
 	public void create () {
 		scoreGame = 0;
+		combo = 0;
 		batch = new SpriteBatch();
 		screen = new GameScreen(this);
 		config = GameConfig.getInstance();
@@ -299,14 +301,21 @@ public class TetrisGame extends ApplicationAdapter {
 	}
 	
 	private void removeRowOfDots() {
+		int preScore = 0;
 		Map<Integer, List<Dot>> rowsOfDots = gameField.getRowsOfDots();
 		for (Map.Entry<Integer, List<Dot>> row: rowsOfDots.entrySet()) {
 			List<Dot> rowOfDots = row.getValue();
 			if (isRowFullDots(rowOfDots)) {
+				preScore += 10;
+				combo += 1;
 				removeDots(row.getValue());
 				fallAllHighDots(row.getKey());
 			}
 		}
+		
+		preScore *= combo;
+		combo = 0;
+		scoreGame += preScore;
 		
 	}
 	
