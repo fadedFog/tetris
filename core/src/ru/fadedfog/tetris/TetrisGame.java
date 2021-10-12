@@ -23,12 +23,16 @@ public class TetrisGame extends ApplicationAdapter {
 	private GameConfig config;
 	private long lastTime;
 	private int scoreGame;
+	private final int MAX_COMBO = 9;
+	private final int SCORE_ADD = 10;
 	private int combo;
+	private int pubCombo;
 	
 	@Override
 	public void create () {
 		scoreGame = 0;
 		combo = 0;
+		pubCombo = combo;
 		batch = new SpriteBatch();
 		screen = new GameScreen(this);
 		config = GameConfig.getInstance();
@@ -306,8 +310,9 @@ public class TetrisGame extends ApplicationAdapter {
 		for (Map.Entry<Integer, List<Dot>> row: rowsOfDots.entrySet()) {
 			List<Dot> rowOfDots = row.getValue();
 			if (isRowFullDots(rowOfDots)) {
-				preScore += 10;
-				combo += 1;
+				preScore += SCORE_ADD;
+				increaseComboNumber();
+				pubCombo = combo;
 				removeDots(row.getValue());
 				fallAllHighDots(row.getKey());
 			}
@@ -316,7 +321,6 @@ public class TetrisGame extends ApplicationAdapter {
 		preScore *= combo;
 		combo = 0;
 		scoreGame += preScore;
-		
 	}
 	
 	private boolean isRowFullDots(List<Dot> dots) {
@@ -335,6 +339,12 @@ public class TetrisGame extends ApplicationAdapter {
 		}
 		
 		return result;
+	}
+	
+	private void increaseComboNumber() {
+		if (combo < MAX_COMBO) {
+			combo += 1;
+		}
 	}
 	
 	private void removeDots(List<Dot> removeDots) {
@@ -390,6 +400,14 @@ public class TetrisGame extends ApplicationAdapter {
 
 	public void setScoreGame(int scoreGame) {
 		this.scoreGame = scoreGame;
+	}
+
+	public int getPubCombo() {
+		return pubCombo;
+	}
+
+	public void setPubCombo(int pubCombo) {
+		this.pubCombo = pubCombo;
 	}
 
 }

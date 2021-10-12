@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -26,8 +27,11 @@ public class GameScreen implements Screen {
 	private Texture spriteDotCaye;
 	private Texture spriteDotPink;
 	private Texture spriteDotYellow;
+	private SpriteBatch spriteBatch = new SpriteBatch();
 	private Texture spriteScore;
 	private Texture[] spritesNumbers;
+	private Texture spriteMultiple;
+	private Sprite spriteMultiply;
 	private int[] score;
 	private final int SIZE_SCORE_ARRAY = 9;
 	private ShapeRenderer shapeRenderer;
@@ -45,6 +49,8 @@ public class GameScreen implements Screen {
 		initSpritesField();
 		spriteScore = new Texture(Gdx.files.internal("score.png"));
 		initSpritesNumbers();
+		spriteMultiple = new Texture(Gdx.files.internal("x.png"));
+		spriteMultiply = new Sprite(spriteMultiple);
 	}
 	
 	private void initSpritesField() {
@@ -150,8 +156,8 @@ public class GameScreen implements Screen {
 		return sprite;
 	}
 	
-	private void drawScore() {
-		int xScore = game.getGameField().getX() - 36;
+	private void drawScore() { // TODO from config file
+		int xScore = config.getxGameField() - 36;
 		int yScore = game.getGameField().getY() - 24;
 		int widthScore = spriteScore.getWidth() / 2;
 		int heightScore = spriteScore.getHeight() / 2;
@@ -169,8 +175,25 @@ public class GameScreen implements Screen {
 			batch.draw(spriteNumber, xNumber + 12 * (i + 1), yScore, 
 					widthNumber, heightumber);
 		}
-		
 		batch.end();
+		
+		drawCombo((float) (xNumber + 12 * 11),  (float) (yScore - 5.5));
+	}
+	
+	private void drawCombo(float xLastNuber, float yScore) {
+		Sprite spriteCombo = new Sprite(spritesNumbers[game.getPubCombo()]);
+		
+		spriteMultiply.setColor(1, 1, 1, 1f);
+		spriteMultiply.setScale(0.5f, 0.5f);
+		spriteMultiply.setPosition(xLastNuber, yScore);
+		
+		spriteCombo.setScale(0.5f, 0.5f);
+		spriteCombo.setPosition(xLastNuber + 12, yScore);
+		
+		spriteBatch.begin();
+		spriteMultiply.draw(spriteBatch);
+		spriteCombo.draw(spriteBatch);
+		spriteBatch.end();
 	}
 	
 	private void updateScoreGame() {
