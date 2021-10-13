@@ -168,23 +168,23 @@ public class GameScreen implements Screen {
 		updateScoreGame();
 		for (int i = 0; i < score.length; i++) {
 			Texture spriteNumber = spritesNumbers[score[i]];
-			batch.draw(spriteNumber, xNumber + 12 * (i + 1), yScore, 
+			batch.draw(spriteNumber, xNumber + 15 * (i + 1), yScore, 
 					widthNumber, heightumber);
 		}
 		
-		drawCombo((float) (xNumber + 12 * 11), yScore);
+		drawCombo((float) (xNumber + 15 * 11), yScore);
 
 		batch.end();
 	}
 	
 	private void drawCombo(float xLastNuber, float yScore) { // TODO from config file
 		Texture spriteCombo = spritesNumbers[game.getPubCombo()];
-		float widthMultiply = (float)(spriteMultiple.getWidth() / 1.7);
-		float heightMultiply = (float)(spriteMultiple.getHeight() / 1.7);
+		float widthMultiply = (float)(spriteMultiple.getWidth() / 2.5);
+		float heightMultiply = (float)(spriteMultiple.getHeight() / 2.5);
 		float widthCombo = (float)(spriteCombo.getWidth() / 1.7);
 		float heightCombo = (float)(spriteCombo.getHeight() / 1.7);
 		
-		batch.draw(spriteMultiple, xLastNuber, yScore, widthMultiply, heightMultiply);
+		batch.draw(spriteMultiple, xLastNuber, yScore + 2, widthMultiply, heightMultiply);
 		batch.draw(spriteCombo, xLastNuber + 15, yScore, widthCombo, heightCombo);
 	}
 	
