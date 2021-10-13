@@ -183,7 +183,6 @@ public class GameScreen implements Screen {
 	private void drawCombo(float xLastNuber, float yScore) {
 		Sprite spriteCombo = new Sprite(spritesNumbers[game.getPubCombo()]);
 		
-		spriteMultiply.setColor(1, 1, 1, 1f);
 		spriteMultiply.setScale(0.5f, 0.5f);
 		spriteMultiply.setPosition(xLastNuber, yScore);
 		
