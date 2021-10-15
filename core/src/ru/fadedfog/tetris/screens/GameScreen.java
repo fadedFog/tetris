@@ -1,5 +1,6 @@
 package ru.fadedfog.tetris.screens;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
@@ -15,6 +16,7 @@ import ru.fadedfog.tetris.config.GameConfig;
 import ru.fadedfog.tetris.models.Dot;
 
 public class GameScreen implements Screen {
+	private final String nameFutureShape = "future_shape";
 	private GameConfig config;
 	private TetrisGame game;
 	private SpriteBatch batch;
@@ -26,6 +28,8 @@ public class GameScreen implements Screen {
 	private Texture spriteDotCaye;
 	private Texture spriteDotPink;
 	private Texture spriteDotYellow;
+	private Texture spriteFieldFutureShape;
+	private HashMap<String, Texture> spritesFutureShapes;
 	private Texture spriteScore;
 	private Texture[] spritesNumbers;
 	private Texture spriteMultiple;
@@ -44,6 +48,7 @@ public class GameScreen implements Screen {
 	
 	private void createSprites() {
 		initSpritesField();
+		initSpritesFututreField();
 		spriteScore = new Texture(Gdx.files.internal("score.png"));
 		initSpritesNumbers();
 		spriteMultiple = new Texture(Gdx.files.internal("x.png"));
@@ -58,6 +63,27 @@ public class GameScreen implements Screen {
 		spriteDotCaye = new Texture(Gdx.files.internal("dot_caye.png"));
 		spriteDotPink = new Texture(Gdx.files.internal("dot_pink.png"));
 		spriteDotYellow = new Texture(Gdx.files.internal("dot_yellow.png"));
+	}
+	
+	private void initSpritesFututreField() {
+		spriteFieldFutureShape = new Texture(Gdx.files.internal("field_future_shape.png"));
+		spritesFutureShapes = new HashMap<>();
+		
+		Texture shapeI = new Texture(Gdx.files.internal(nameFutureShape + "I.png"));
+		Texture shapeJ= new Texture(Gdx.files.internal(nameFutureShape + "J.png"));
+		Texture shapeL = new Texture(Gdx.files.internal(nameFutureShape + "L.png"));
+		Texture shapeO = new Texture(Gdx.files.internal(nameFutureShape + "O.png"));
+		Texture shapeS = new Texture(Gdx.files.internal(nameFutureShape + "S.png"));
+		Texture shapeT = new Texture(Gdx.files.internal(nameFutureShape + "T.png"));
+		Texture shapeZ = new Texture(Gdx.files.internal(nameFutureShape + "Z.png"));
+		
+		spritesFutureShapes.put("I", shapeI);
+		spritesFutureShapes.put("J", shapeJ);
+		spritesFutureShapes.put("L", shapeL);
+		spritesFutureShapes.put("O", shapeO);
+		spritesFutureShapes.put("S", shapeS);
+		spritesFutureShapes.put("T", shapeT);
+		spritesFutureShapes.put("Z", shapeZ);
 	}
 	
 	private void initSpritesNumbers() {
@@ -78,6 +104,7 @@ public class GameScreen implements Screen {
 		drawBoundField();
 		drawGridField();
 		drawDots();
+		drawFutureShape();
 		drawScore();
 	}
 	
@@ -151,6 +178,20 @@ public class GameScreen implements Screen {
 		
 		return sprite;
 	}
+	
+	private void drawFutureShape() { // TODO from config file
+		batch.begin();
+		batch.draw(spriteFieldFutureShape,  game.getGameField().getX() - 4 - 32, game.getGameField().getY() + config.getHeightGameField() - 24);
+		Texture spriteFutureShape = getSpriteFutureShape();
+		batch.draw(spriteFutureShape,  game.getGameField().getX() - 4 - 32, game.getGameField().getY() + config.getHeightGameField() - 24);
+		batch.end();
+	}
+	
+	private Texture getSpriteFutureShape() {
+		String typeShape = game.getGameField().getFutureTypeShape().toString();
+		Texture spriteFutureShape = spritesFutureShapes.get(typeShape);
+		return spriteFutureShape;
+	} 
 	
 	private void drawScore() { // TODO from config file
 		int xScore = config.getxGameField() - 36;

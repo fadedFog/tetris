@@ -13,6 +13,7 @@ import ru.fadedfog.tetris.config.GameConfig;
 
 public class GameField {
 	private ShapeFactory shapeFactory;
+	private TypeShape futureTypeShape;
 	private Shape usedShape;
 	private Rectangle areaRectangle;
 	private GameConfig config;
@@ -28,9 +29,15 @@ public class GameField {
 	}
 
 	public void createNewShape() {
-		TypeShape typeShape = getRandomTypeShape();
+		TypeShape typeShape;
+		if (futureTypeShape == null) {
+			typeShape = getRandomTypeShape();
+		} else {
+			typeShape = futureTypeShape;
+		}
 		usedShape = shapeFactory.createShape(typeShape);
 		addingNewDots();
+		futureTypeShape = getRandomTypeShape();
 		
 		isShapeCollisionShape = false;
 	}
@@ -127,6 +134,14 @@ public class GameField {
 
 	public Shape getUsedShape() {
 		return usedShape;
+	}
+
+	public TypeShape getFutureTypeShape() {
+		return futureTypeShape;
+	}
+
+	public void setFutureTypeShape(TypeShape futureTypeShape) {
+		this.futureTypeShape = futureTypeShape;
 	}
 	
 }
