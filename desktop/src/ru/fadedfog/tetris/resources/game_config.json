@@ -1,14 +1,14 @@
 {
   "titleWindow": "T e t r i s",
   "widthWindow": 336,
-  "heightWindow": 696,
+  "heightWindow": 596,
   "yWindow": 1,
   "resizableWindow": false,
   "sizePartShap": 24,
   "columnsNumber": 10,
   "rowsNumber": 22,
   "xGameField": 48,
-  "yGameField": 168,
+  "yGameField": 68,
   "widthGameField": 240,
   "heightGameField": 504
 }

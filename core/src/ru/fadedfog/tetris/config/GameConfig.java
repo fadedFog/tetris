@@ -148,5 +148,21 @@ public class GameConfig {
 	public void setHeightGameField(int heightGameField) {
 		config.setHeightWindow(heightGameField);
 	}
+
+	public int getxFieldFututreShape() {
+		return config.getxFieldFututreShape();
+	}
+
+	public int getYFieldFututreShape() {
+		return config.getyFieldFututreShape();
+	}
+	
+	public int getxScore() {
+		return config.getxScore();
+	}
+
+	public int getyScore() {
+		return config.getyScore();
+	}
 	
 }
