@@ -17,6 +17,7 @@ import ru.fadedfog.tetris.models.Dot;
 
 public class GameScreen implements Screen {
 	private final String nameFutureShape = "future_shape";
+	private final int SPACE_BETWEEN_SCORE_NUMBER = 15;
 	private GameConfig config;
 	private TetrisGame game;
 	private SpriteBatch batch;
@@ -179,11 +180,11 @@ public class GameScreen implements Screen {
 		return sprite;
 	}
 	
-	private void drawFutureShape() { // TODO from config file
+	private void drawFutureShape() {
 		batch.begin();
-		batch.draw(spriteFieldFutureShape,  game.getGameField().getX() - 4 - 32, game.getGameField().getY() + config.getHeightGameField() - 24);
+		batch.draw(spriteFieldFutureShape,  config.getxFieldFututreShape(), config.getYFieldFututreShape());
 		Texture spriteFutureShape = getSpriteFutureShape();
-		batch.draw(spriteFutureShape,  game.getGameField().getX() - 4 - 32, game.getGameField().getY() + config.getHeightGameField() - 24);
+		batch.draw(spriteFutureShape,  config.getxFieldFututreShape(), config.getYFieldFututreShape());
 		batch.end();
 	}
 	
@@ -193,9 +194,9 @@ public class GameScreen implements Screen {
 		return spriteFutureShape;
 	} 
 	
-	private void drawScore() { // TODO from config file
-		int xScore = config.getxGameField() - 36;
-		int yScore = game.getGameField().getY() - 24;
+	private void drawScore() {
+		int xScore = config.getxScore();
+		int yScore = config.getyScore();
 		int widthScore = spriteScore.getWidth() / 2;
 		int heightScore = spriteScore.getHeight() / 2;
 		int xNumber = xScore + widthScore;
@@ -209,11 +210,12 @@ public class GameScreen implements Screen {
 		updateScoreGame();
 		for (int i = 0; i < score.length; i++) {
 			Texture spriteNumber = spritesNumbers[score[i]];
-			batch.draw(spriteNumber, xNumber + 15 * (i + 1), yScore, 
+			batch.draw(spriteNumber, xNumber + SPACE_BETWEEN_SCORE_NUMBER * (i + 1), yScore, 
 					widthNumber, heightumber);
 		}
 		
-		drawCombo((float) (xNumber + 15 * 11), yScore);
+		int xCombo = xNumber + SPACE_BETWEEN_SCORE_NUMBER * (score.length + 2);
+		drawCombo((float) xCombo,	yScore);
 
 		batch.end();
 	}

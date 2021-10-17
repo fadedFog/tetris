@@ -109,5 +109,21 @@ public class Config {
 	public void setHeightGameField(int heightGameField) {
 		this.heightGameField = heightGameField;
 	}
+
+	public int getxFieldFututreShape() {
+		return xGameField - 4 - 32;
+	}
+
+	public int getyFieldFututreShape() {
+		return yGameField + heightGameField - 24;
+	}
+
+	public int getxScore() {
+		return xGameField - 36;
+	}
+
+	public int getyScore() {
+		return yGameField - 24;
+	}
 	
 }
