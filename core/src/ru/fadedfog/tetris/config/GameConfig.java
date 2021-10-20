@@ -165,4 +165,8 @@ public class GameConfig {
 		return config.getyScore();
 	}
 	
+	public int getYStageGame() {
+		return config.getYStageGame();
+	}
+	
 }
