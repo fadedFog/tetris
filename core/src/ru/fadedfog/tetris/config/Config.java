@@ -126,4 +126,8 @@ public class Config {
 		return yGameField - 24;
 	}
 	
+	public int getYStageGame() {
+		return yGameField + heightGameField - 72;
+	}
+	
 }

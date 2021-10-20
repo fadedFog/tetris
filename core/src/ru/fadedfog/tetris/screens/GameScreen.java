@@ -21,6 +21,8 @@ public class GameScreen implements Screen {
 	private GameConfig config;
 	private TetrisGame game;
 	private SpriteBatch batch;
+	private Texture spritePause;
+	private Texture spritePlay;
 	private Texture spriteBorderField;
 	private Texture spriteDotRed;
 	private Texture spriteDotGreen;
@@ -48,11 +50,17 @@ public class GameScreen implements Screen {
 	}
 	
 	private void createSprites() {
+		initSpritesStageGame();
 		initSpritesField();
 		initSpritesFututreField();
 		spriteScore = new Texture(Gdx.files.internal("score.png"));
 		initSpritesNumbers();
 		spriteMultiple = new Texture(Gdx.files.internal("x.png"));
+	}
+	
+	private void initSpritesStageGame() {
+		spritePause = new Texture(Gdx.files.internal("pause.png"));
+		spritePlay = new Texture(Gdx.files.internal("play.png"));
 	}
 	
 	private void initSpritesField() {
@@ -102,11 +110,25 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
+		drawStageGame();
 		drawBoundField();
 		drawGridField();
 		drawDots();
 		drawFutureShape();
 		drawScore();
+	}
+	
+	private void drawStageGame() {
+		batch.begin();
+		Texture spriteStageGame = spritePlay;
+		
+		if (!game.isPause()) {
+			spriteStageGame = spritePause;
+		}
+		
+		batch.draw(spriteStageGame, config.getxFieldFututreShape(), config.getYFieldFututreShape() - 48);
+		
+		batch.end();
 	}
 	
 	private void drawBoundField() {
