@@ -14,6 +14,7 @@ import ru.fadedfog.tetris.models.Dot;
 import ru.fadedfog.tetris.models.GameField;
 import ru.fadedfog.tetris.models.Shape;
 import ru.fadedfog.tetris.movement.PositionsDots;
+import ru.fadedfog.tetris.movement.UserKeys;
 import ru.fadedfog.tetris.screens.GameScreen;
 
 public class TetrisGame extends ApplicationAdapter {
@@ -21,15 +22,19 @@ public class TetrisGame extends ApplicationAdapter {
 	private Screen screen;
 	private GameField gameField;
 	private GameConfig config;
+	private UserKeys userKeys;
 	private long lastTime;
 	private int scoreGame;
 	private final int MAX_COMBO = 9;
 	private final int SCORE_ADD = 10;
 	private int combo;
 	private int pubCombo;
+	private boolean isPause;
 	
 	@Override
 	public void create () {
+		isPause = false;
+		userKeys = new UserKeys();
 		scoreGame = 0;
 		combo = 0;
 		pubCombo = combo;
@@ -47,9 +52,18 @@ public class TetrisGame extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-		update();
+		changePauseResume();
+		if (!isPause) {
+			update();	
+		}
 		ScreenUtils.clear(0, 0, 0, 1);
 		screen.render(1);
+	}
+	
+	private void changePauseResume() {
+		if (userKeys.isEscPressed()) {
+			isPause = !isPause;
+		}
 	}
 	
 	private void update() {
@@ -408,6 +422,14 @@ public class TetrisGame extends ApplicationAdapter {
 
 	public void setPubCombo(int pubCombo) {
 		this.pubCombo = pubCombo;
+	}
+
+	public boolean isPause() {
+		return isPause;
+	}
+
+	public void setPause(boolean isPause) {
+		this.isPause = isPause;
 	}
 
 }
