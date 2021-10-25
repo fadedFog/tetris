@@ -2,6 +2,7 @@ package ru.fadedfog.tetris.movement;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Rectangle;
 
 import ru.fadedfog.tetris.config.GameConfig;
@@ -19,12 +20,13 @@ public class MovementShape {
 	private boolean isAnyKeyNotPressed;
 	private long lastTime;
 	private final long TIME_FALL = 20;
+	private Sound soundOfRotate;
 	
 	public MovementShape() {
 		config = GameConfig.getInstance();
 		positionsDots = new PositionsDots();
-		
 		lastTime = System.currentTimeMillis();
+		soundOfRotate = Gdx.audio.newSound(Gdx.files.internal("sound_rotate.wav"));		
 	}
 	
 	public void rotate(Shape shape) {
@@ -51,6 +53,7 @@ public class MovementShape {
 			}
 			
 			shape.setNumberSide(shape.getNumberSide() + 1); 
+			soundOfRotate.play();
 		}
 	}
 	
