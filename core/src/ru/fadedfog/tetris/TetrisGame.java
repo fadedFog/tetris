@@ -20,6 +20,7 @@ import ru.fadedfog.tetris.movement.UserKeys;
 import ru.fadedfog.tetris.screens.GameScreen;
 
 public class TetrisGame extends ApplicationAdapter {
+	private final float VOLUME_SOUND = 0.2f;
 	private SpriteBatch batch;
 	private Screen screen;
 	private GameField gameField;
@@ -319,7 +320,7 @@ public class TetrisGame extends ApplicationAdapter {
 	private void checkingStopShape() {
 		if (gameField.isShapeCollisionShape()) {
 			removeRowOfDots();
-			soundOfStack.play();
+			soundOfStack.play(VOLUME_SOUND);
 			gameField.createNewShape();
 		}
 	}

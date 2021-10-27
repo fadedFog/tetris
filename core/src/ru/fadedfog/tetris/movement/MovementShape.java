@@ -10,6 +10,7 @@ import ru.fadedfog.tetris.models.Dot;
 import ru.fadedfog.tetris.models.Shape;
 
 public class MovementShape {
+	private final float VOLUME_SOUND = 0.2f;
 	private final int A_KEY = Input.Keys.A;
 	private final int D_KEY = Input.Keys.D;
 	private final int ENTER_KEY = Input.Keys.ENTER;
@@ -53,7 +54,7 @@ public class MovementShape {
 			}
 			
 			shape.setNumberSide(shape.getNumberSide() + 1); 
-			soundOfRotate.play();
+			soundOfRotate.play(VOLUME_SOUND);
 		}
 	}
 	
